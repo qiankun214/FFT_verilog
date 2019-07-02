@@ -3,6 +3,7 @@ import random
 # from software_model import soft_fft
 import software_model as sm
 import numpy as np
+from scipy.fftpack import fft
 
 class plural(object):
 	"""docstring for plural"""
@@ -73,10 +74,11 @@ def parallel_fft_8(din,len_log=3):
 
 	# pre-handle
 	tmp = [[None for _ in range(2 ** len_log)] for _ in range(len_log+1)]
-	for i in range(2 ** (len_log - 1)):
-		tmp[0][2*i] = din[i]
-		tmp[0][2*i+1] = din[i+2**(len_log-1)]
-		print(i,i+2**(len_log-1),"->",2*i,2*i+1)
+	for i in range(2 ** len_log):
+		index = int(bin(i)[2:].rjust(len_log,"0")[::-1],2)
+		# print()
+		tmp[0][index] = din[i]
+		print("%s->%s" % (i,index))
 	# tmp[0] = din[::4] + din[1::4] + din[2::4] + din[3::4]
 	# print([str(x) for x in tmp[0]])
 	group_num = 2 ** (len_log - 1)
@@ -99,7 +101,7 @@ def parallel_fft_8(din,len_log=3):
 		bias = bias * 2
 
 	# return tmp
-	print("hardware temp\n",result_generator_from_plural(tmp[len_log-1]))
+	# print("hardware temp\n",result_generator_from_plural(tmp[len_log-1]))
 	return tmp[len_log]
 
 def debug_fft8(data):
@@ -107,26 +109,38 @@ def debug_fft8(data):
 	# data1 = data[::2]
 	# data2 = data[1::2]
 	data1=np.array([data[0],data[4]])
-	data2=np.array([data[1],data[5]])
-	data3=np.array([data[2],data[6]])
+	data2=np.array([data[2],data[6]])
+	data3=np.array([data[1],data[5]])
 	data4=np.array([data[3],data[7]])
-	r1 = sm.software_fft(data1)
-	r2 = sm.software_fft(data2)
-	r3 = sm.software_fft(data3)
-	r4 = sm.software_fft(data4)
+	r1 = sm.software_fft(data1).tolist()
+	r2 = sm.software_fft(data2).tolist()
+	r3 = sm.software_fft(data3).tolist()
+	r4 = sm.software_fft(data4).tolist()
+	
+	data1 = np.array(r1+r2)
+	data2 = np.array(r3+r4)
 
 	result = np.zeros(8,dtype=complex).tolist()
-	
-	r1 = sm.software_fft(data1)
-	r2 = sm.software_fft(data2)
-	print("software temp\n",r1,"\n",r2)
+	for i in range(2):
+		w = weight_generator(4,i)
+		op1 = plural(*data1[i])
+		op2 = plural(*data1[i+2])
+		result[i],result[i+2] = butterfly(op1,op2,w)
+	for i in range(2):
+		w = weight_generator(4,i)
+		op1 = plural(*data2[i])
+		op2 = plural(*data2[i+2])
+		result[i+4],result[i+6] = butterfly(op1,op2,w)
+	# r1 = sm.software_fft(data1)
+	# print("software temp\n",r1,"\n",r2)
+	r1,r2 = result.copy()[:4],result.copy()[4:]
 	for i in range(4):
 		w = weight_generator(8,i)
 		# print(w,r1[1])
-		op1 = plural(*r1[i])
-		op2 = plural(*r2[i])
+		op1 = r1[i]
+		op2 = r2[i]
 		result[i],result[i+4] = butterfly(op1,op2,w)
-	# print("half-software\n",result_generator_from_plural(result),"\nsoftware\n",sm.software_fft(data))
+	print("half-software\n",result_generator_from_plural(result),"\nsoftware\n",sm.software_fft(data))
 
 
 if __name__ == '__main__':
@@ -138,12 +152,12 @@ if __name__ == '__main__':
 	print("input:",data)
 	result = sm.software_fft(data)
 	# print(type(result[0]))
-	# print("software:\n",result)
+	print("software:\n",result)
 
 	data_hd = data_generator_from_real(data)
 	result_hd = parallel_fft_8(data_hd,len_log)
 	result_hd = result_generator_from_plural(result_hd)
-	# print("hardware:\n",result_hd)
+	print("hardware:\n",result_hd)
 	# plural_test()
-	# print("compare:\n",np.abs(result - result_hd))
-	debug_fft8(data)
+	print("compare:\n",np.sum(np.abs(result - result_hd)))
+	# debug_fft8(data)
