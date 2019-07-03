@@ -76,18 +76,14 @@ def parallel_fft_8(din,len_log=3):
 	tmp = [[None for _ in range(2 ** len_log)] for _ in range(len_log+1)]
 	for i in range(2 ** len_log):
 		index = int(bin(i)[2:].rjust(len_log,"0")[::-1],2)
-		# print()
 		tmp[0][index] = din[i]
 		print("%s->%s" % (i,index))
-	# tmp[0] = din[::4] + din[1::4] + din[2::4] + din[3::4]
-	# print([str(x) for x in tmp[0]])
 	group_num = 2 ** (len_log - 1)
 	group_len = 1
 	bias = 1
 
 	# 2 point fft
 	for step in range(len_log):
-		# print(step)
 		assert(group_num * group_len * 2 == 2 ** len_log)
 		for group in range(group_num):
 			for num in range(group_len):
@@ -95,13 +91,11 @@ def parallel_fft_8(din,len_log=3):
 				op2_index = op1_index + bias
 				tmp[step+1][op1_index],tmp[step+1][op2_index] = butterfly(
 					tmp[step][op1_index],tmp[step][op2_index],weight_generator(group_len*2,num))
-				print("handle step:",step,"op1:",op1_index,"op2:",op2_index,"weight N,k:",group_len*2,num)
+				# print("handle step:",step,"op1:",op1_index,"op2:",op2_index,"weight N,k:",group_len*2,num)
 		group_num = group_num // 2
 		group_len = group_len * 2
 		bias = bias * 2
-
-	# return tmp
-	# print("hardware temp\n",result_generator_from_plural(tmp[len_log-1]))
+ 
 	return tmp[len_log]
 
 def debug_fft8(data):
