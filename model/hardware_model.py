@@ -154,4 +154,8 @@ if __name__ == '__main__':
 	print("hardware:\n",result_hd)
 	# plural_test()
 	print("compare:\n",np.sum(np.abs(result - result_hd)))
+<<<<<<< HEAD
 	# debug_fft8(data)
+=======
+	# debug_fft8(data)
+>>>>>>> 5fa6a1fe7a3701a10fad4635f221548f852c73b1
