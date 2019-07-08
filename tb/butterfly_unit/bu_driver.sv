@@ -4,13 +4,6 @@
 
 `include "bu_transaction.sv"
 
-interface bu_port #(parameter int WIDTH) (logic clk);
-	logic valid;
-	logic busy;
-	logic [WIDTH - 1:0] data_real;
-	logic [WIDTH - 1:0] data_imag; 
-endinterface : bu_port
-
 class bu_driver #(parameter int NPOINT,parameter int WIDTH);
 
 	bu_transaction din_fifo [$];
@@ -22,11 +15,19 @@ class bu_driver #(parameter int NPOINT,parameter int WIDTH);
 		my_port.data = 'b0;
 	endfunction 
 
-	function void din(bu_transaction data);
+	function void din(bu_transaction#(NPOINT) data);
 		din_fifo.push_back(data.copy());
 	endfunction : din
 
-	task work();
+	function logic is_noempty();
+		if( din_fifo.size() == 0) begin
+			return 1'b0;
+		end else begin
+			return 1'b1;
+		end
+	endfunction : is_noempty
+
+	task send();
 		bu_transaction tmp;
 		tmp = din_fifo.pop_front();
 		for (int i = 0; i < 2 ** NPOINT; i++) begin
@@ -38,7 +39,7 @@ class bu_driver #(parameter int NPOINT,parameter int WIDTH);
 			@(my_port.clk);
 		end while(my_port.busy);
 		my_port.valid = 'b0;
-	endtask : work
+	endtask : send
 
 endclass : bu_driver
 

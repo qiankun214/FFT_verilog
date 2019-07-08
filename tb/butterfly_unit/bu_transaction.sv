@@ -2,6 +2,13 @@
 `ifndef TRAN_BN
 `define TRAN_BN
 
+interface bu_port #(parameter int WIDTH) (logic clk);
+	logic valid;
+	logic busy;
+	logic [WIDTH - 1:0] data_real;
+	logic [WIDTH - 1:0] data_imag; 
+endinterface : bu_port
+
 class bu_transaction #(parameter int NPOINT);
 
 	integer data_real [2 ** NPOINT - 1:0];
