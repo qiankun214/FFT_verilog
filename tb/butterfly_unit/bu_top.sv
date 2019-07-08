@@ -1,20 +1,22 @@
-`include "bu_env.sv"
 
-module bu_top (
-);
+`include "bu_env.sv"
+`include "bu_driver.sv"
+`include "bu_monitor.sv"
+`include "bu_transaction.sv"
+
+module bu_top ();
 
 parameter NPOINT = 3;
 parameter WIDTH = 16;
 parameter STEP = 0;
 
-bn_env env;
-
 logic clk,rst_n;
 bu_port#( WIDTH * (2 ** NPOINT) ) drv_if(clk);
 bu_port#( WIDTH * (2 ** NPOINT) ) mon_if(clk);
 
-logic [WIDTH * (2 ** NPOINT) - 1:0] weight_real;
-logic [WIDTH * (2 ** NPOINT) - 1:0] weight_imag;
+logic [WIDTH * (2 ** (NPOINT - 1)) - 1:0] weight_real;
+logic [WIDTH * (2 ** (NPOINT - 1)) - 1:0] weight_imag;
+
 
 butterfly#(
 	.WIDTH		(WIDTH	),
@@ -28,24 +30,29 @@ butterfly#(
 	.din_valid(drv_if.valid),
 	.din_busy(drv_if.busy),
 
-	.din_real(drv_if.real),
-	.din_imag(drv_if.imag),
+	.din_real(drv_if.data_real),
+	.din_imag(drv_if.data_imag),
 
 	// output
 	.dout_valil(mon_if.valid),
 	.dout_busy(mon_if.busy),
 
-	.dout_real(mon_if.real),
-	.dout_imag(mon_if.imag),
+	.dout_real(mon_if.data_real),
+	.dout_imag(mon_if.data_imag),
 
 	// weight
-	.din_weight_real(),
-	.din_weight_imag()
+	.din_weight_real(weight_real),
+	.din_weight_imag(weight_imag)
 );
+
+	bu_driver#(NPOINT,WIDTH) drv;
+	bu_monitor#(NPOINT,WIDTH) mon;
+// bn_env#(NPOINT,WIDTH) tb;
 
 // config
 initial begin
-	env = new(drv_if,mon_if);
+	drv = new(drv_if);
+	mon = new(mon_if);
 	weight_imag = 'b0;
 	for (int i = 0; i < 2 ** NPOINT; i++) begin
 		weight_real[i * WIDTH +: WIDTH ] = (WIDTH)'(i);
@@ -56,8 +63,8 @@ end
 initial begin
 	@(posedge clk);
 	forever begin
-		if(env.drv.is_noempty()) begin
-			env.drv.send();
+		if(drv.is_noempty()) begin
+			drv.send();
 		end else begin
 			@(posedge clk);
 		end
@@ -68,22 +75,22 @@ end
 initial begin
 	@(posedge clk);
 	forever begin
-		env.mon.receive();
+		mon.receive();
 	end
 end
 
 task case1();
-	bu_transaction req;
+	bu_transaction#(NPOINT) req;
 	req = new();
 	for (int i = 0; i < 2 ** NPOINT; i++) begin
 		req.data_real[i] = 1;
 		req.data_imag[i] = 0;
 	end
-	env.drv.din(req);
+	drv.din(req);
 	do begin
 		@(posedge clk);
-	end while(!env.mon.is_noempty());
-	req = env.mon.dout_fifo.pop_front()
+	end while(!mon.is_noempty());
+	req = mon.dout_fifo.pop_front();
 	$display("%p",req.data_real);
 	$stop;
 endtask : case1

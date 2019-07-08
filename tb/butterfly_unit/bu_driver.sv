@@ -6,13 +6,14 @@
 
 class bu_driver #(parameter int NPOINT,parameter int WIDTH);
 
-	bu_transaction din_fifo [$];
+	bu_transaction#(NPOINT) din_fifo [$];
 	virtual bu_port#((2 ** NPOINT) * WIDTH) my_port;
 
-	function new ( virtual bu_port my_if );
+	function new ( virtual bu_port#((2 ** NPOINT) * WIDTH) my_if );
 		my_port = my_if;
 		my_port.valid = 1'b0;
-		my_port.data = 'b0;
+		my_port.data_real = 'b0;
+		my_port.data_imag = 'b0;
 	endfunction 
 
 	function void din(bu_transaction#(NPOINT) data);
@@ -28,7 +29,7 @@ class bu_driver #(parameter int NPOINT,parameter int WIDTH);
 	endfunction : is_noempty
 
 	task send();
-		bu_transaction tmp;
+		bu_transaction#(NPOINT) tmp;
 		tmp = din_fifo.pop_front();
 		for (int i = 0; i < 2 ** NPOINT; i++) begin
 			my_port.data_real[i*WIDTH +: WIDTH] = tmp.data_real[i];
