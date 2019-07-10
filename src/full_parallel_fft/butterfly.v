@@ -18,7 +18,7 @@ module butterfly#(
 
 	// output
 	output reg dout_valil,
-	output reg dout_busy,
+	input dout_busy,
 
 	output reg [WIDTH * (2 ** NPOINT) - 1:0] dout_real,
 	output reg [WIDTH * (2 ** NPOINT) - 1:0] dout_imag,
@@ -130,16 +130,16 @@ generate
 			 	butterfly_tmp_real[compute_i] <= 'b0;
 			 	butterfly_tmp_imag[compute_i] <= 'b0;
 			end else begin
-			 	butterfly_tmp_real[compute_i] <= tmp11[WIDTH +: WIDTH] - tmp12[WIDTH +: WIDTH];
-			 	butterfly_tmp_imag[compute_i] <= tmp21[WIDTH +: WIDTH] + tmp22[WIDTH +: WIDTH];
+			 	butterfly_tmp_real[compute_i] <= {tmp11[2*WIDTH-1],tmp11[10 +: WIDTH-1]} - {tmp12[2*WIDTH-1],tmp12[10 +: WIDTH-1]};
+			 	butterfly_tmp_imag[compute_i] <= {tmp21[2*WIDTH-1],tmp21[10 +: WIDTH-1]} + {tmp22[2*WIDTH-1],tmp22[10 +: WIDTH-1]};
 			end
 		end
 
-		assign butterfly_r1_real[compute_i] = butterfly_tmp_real[compute_i] + butterfly_op1_real[compute_i];
-		assign butterfly_r1_imag[compute_i] = butterfly_tmp_imag[compute_i] + butterfly_op1_imag[compute_i];
+		assign butterfly_r1_real[compute_i] = butterfly_op1_real[compute_i] + butterfly_tmp_real[compute_i];
+		assign butterfly_r1_imag[compute_i] = butterfly_op1_imag[compute_i] + butterfly_tmp_imag[compute_i];
 
-		assign butterfly_r1_real[compute_i] = butterfly_op1_real[compute_i] - butterfly_tmp_real[compute_i];
-		assign butterfly_r1_imag[compute_i] = butterfly_op1_imag[compute_i] - butterfly_tmp_imag[compute_i];
+		assign butterfly_r2_real[compute_i] = butterfly_op1_real[compute_i] - butterfly_tmp_real[compute_i];
+		assign butterfly_r2_imag[compute_i] = butterfly_op1_imag[compute_i] - butterfly_tmp_imag[compute_i];
 
 	end
 endgenerate

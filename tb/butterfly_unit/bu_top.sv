@@ -1,8 +1,8 @@
 
-`include "bu_env.sv"
+// `include "bu_env.sv"
 `include "bu_driver.sv"
 `include "bu_monitor.sv"
-`include "bu_transaction.sv"
+// `include "bu_transaction.sv"
 
 module bu_top ();
 
@@ -49,13 +49,26 @@ butterfly#(
 	bu_monitor#(NPOINT,WIDTH) mon;
 // bn_env#(NPOINT,WIDTH) tb;
 
+initial begin
+	clk = 1'b0;
+	forever begin
+		#5 clk = ~clk;
+	end
+end
+
+initial begin
+	mon_if.busy = 1'b0;
+	rst_n = 1'b1;
+	#1 rst_n = 1'b0;
+	#1 rst_n = 1'b1;
+end
 // config
 initial begin
 	drv = new(drv_if);
 	mon = new(mon_if);
 	weight_imag = 'b0;
 	for (int i = 0; i < 2 ** NPOINT; i++) begin
-		weight_real[i * WIDTH +: WIDTH ] = (WIDTH)'(i);
+		weight_real[i * WIDTH +: WIDTH ] = (WIDTH)'(i * 1024);
 	end
 end
 
@@ -81,12 +94,15 @@ end
 
 task case1();
 	bu_transaction#(NPOINT) req;
+	$display("Case1:begin");
 	req = new();
 	for (int i = 0; i < 2 ** NPOINT; i++) begin
 		req.data_real[i] = 1;
 		req.data_imag[i] = 0;
 	end
+	$display("Case1:data generate finish");
 	drv.din(req);
+	// $display("Case1:data generate finish");
 	do begin
 		@(posedge clk);
 	end while(!mon.is_noempty());
