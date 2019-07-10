@@ -111,9 +111,49 @@ task case1();
 	$stop;
 endtask : case1
 
+task case2();
+	bu_transaction#(NPOINT) req;
+	$display("Case2:begin");
+	req = new();
+	for (int i = 0; i < 2 ** NPOINT; i++) begin
+		req.data_real[i] = -1;
+		req.data_imag[i] = 0;
+	end
+		$display("%p",req.data_real);
+	$display("Case2:data generate finish");
+	drv.din(req);
+	// $display("Case1:data generate finish");
+	do begin
+		@(posedge clk);
+	end while(!mon.is_noempty());
+	req = mon.dout_fifo.pop_front();
+	$display("%p",req.data_real);
+	$stop;
+endtask : case2
+
+task case3();
+	bu_transaction#(NPOINT) req;
+	$display("Case3:begin");
+	req = new();
+	for (int i = 0; i < 2 ** NPOINT; i++) begin
+		req.data_real[i] = i;
+		req.data_imag[i] = 0;
+	end
+		$display("%p",req.data_real);
+	$display("Case3:data generate finish");
+	drv.din(req);
+	// $display("Case1:data generate finish");
+	do begin
+		@(posedge clk);
+	end while(!mon.is_noempty());
+	req = mon.dout_fifo.pop_front();
+	$display("%p",req.data_real);
+	$stop;
+endtask : case3
+
 initial begin
 	@(posedge clk);
-	case1();
+	case3();
 end
 
 endmodule

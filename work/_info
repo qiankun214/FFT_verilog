@@ -9,10 +9,10 @@ z2
 cModel Technology
 dD:/HDL/systemverilog/queen
 T_opt
-!s110 1562749823
-VaBlWQhdbiSnzL[UMM@>_;3
+!s110 1562766388
+VZLdAlnbL12Jd;@Vk:8M3X2
 04 6 4 work bu_top fast 0
-=1-24f5aad9c052-5d25ab7f-2ae-1c90
+=1-54bf640ae5cb-5d25ec34-12e-41b4
 o-quiet -auto_acc_if_foreign -work work +acc
 Z0 tCvgOpt 0
 n@_opt
@@ -57,9 +57,9 @@ R4
 R5
 8C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_env.sv
 FC:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_env.sv
-Z11 FC:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_driver.sv
+FC:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_driver.sv
 R6
-Z12 FC:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_monitor.sv
+FC:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_monitor.sv
 R7
 R8
 r1
@@ -99,76 +99,76 @@ R10
 R0
 Ybu_port
 R2
-!s110 1562749819
+Z11 !s110 1562766385
 !i10b 1
 !s100 dG]_`47aVTW>N>HFYZ^io0
-IF?SNYe488n<?DDWn@L:J70
-Z13 VDg1SIo80bB@j0V0VzS_@n1
-Z14 !s105 bu_top_sv_unit
+Ie4zdzjQbQ9K_nD0PCB@ih2
+Z12 VDg1SIo80bB@j0V0VzS_@n1
+Z13 !s105 bu_top_sv_unit
 S1
-R4
-R5
-8C:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_transaction.sv
-R6
+Z14 dD:/NNBase_myself/DSP/FFT
+w1562765175
+8D:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_transaction.sv
+Z15 FD:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_transaction.sv
 L0 5
 R8
 r1
 !s85 0
 31
-Z15 !s108 1562749819.000000
-Z16 !s107 C:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_monitor.sv|C:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_transaction.sv|C:\Users\qiank\Desktop\FFT\FFT_verilog\tb\butterfly_unit\bu_driver.sv|C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv|
-Z17 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv|
+Z16 !s108 1562766385.000000
+Z17 !s107 D:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_monitor.sv|D:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_transaction.sv|D:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_driver.sv|D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv|
+Z18 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv|
 !i113 0
 R10
 R0
 vbu_top
 R2
-DXx4 work 14 bu_top_sv_unit 0 22 jKO4?;Ij9L0jAEVT;J?Bm3
-R13
+DXx4 work 14 bu_top_sv_unit 0 22 R?E?hkiz6A]N<jJKITGA62
+R12
 r1
 !s85 0
 31
 !i10b 1
-!s100 G=WXJFQWLiE1@XQ2zE^n02
-I2zma=fo5K<JiPg1?SF1`X2
-R14
+!s100 HZnIC_>J4RzG@MWGTcYgY1
+I`mC>R00?^Ngb3VA>5BTHE1
+R13
 S1
-R4
-w1562730111
-Z18 8C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv
-Z19 FC:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv
+R14
+Z19 w1562766377
+Z20 8D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv
+Z21 FD:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv
 L0 7
 R8
-R15
 R16
 R17
+R18
 !i113 0
 R10
 R0
 Xbu_top_sv_unit
 R1
 R2
-VjKO4?;Ij9L0jAEVT;J?Bm3
+VR?E?hkiz6A]N<jJKITGA62
 r1
 !s85 0
 31
 !i10b 1
-!s100 <Uz9F=K7U>i0U?<Q?[9gD1
-IjKO4?;Ij9L0jAEVT;J?Bm3
+!s100 ;:8J4kZOXi[=o8Znlg>T^2
+IR?E?hkiz6A]N<jJKITGA62
 !i103 1
 S1
-R4
-w1562749811
-R18
+R14
 R19
-R11
-R6
-R12
+R20
+R21
+FD:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_driver.sv
+R15
+FD:\NNBase_myself\DSP\FFT\tb\butterfly_unit\bu_monitor.sv
 R7
 R8
-R15
 R16
 R17
+R18
 !i113 0
 R10
 R0
@@ -197,23 +197,23 @@ R9
 R10
 R0
 vbutterfly
-!s110 1562749818
+R11
 !i10b 1
 !s100 ]IGiXIe@Dz43S7Bk<PV0X3
-IIgMk8FK`F8Z6063>1>Oe62
-R13
-R4
-w1562730813
-8C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v
-FC:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v
+Ij2M3>mI34B:R>mXP33GXV2
+R12
+R14
+w1562764911
+8D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v
+FD:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v
 L0 1
 R8
 r1
 !s85 0
 31
-!s108 1562749818.000000
-!s107 C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v|
-!s90 -reportprogress|300|-work|work|-vopt|-stats=none|C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v|
+R16
+!s107 D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v|
 !i113 0
 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R0

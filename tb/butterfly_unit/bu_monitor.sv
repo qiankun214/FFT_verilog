@@ -33,9 +33,9 @@ class bu_monitor #(parameter int NPOINT,parameter int WIDTH);
 			$display("MON:get one req start");
 			for (int i = 0; i < 2 ** NPOINT; i++) begin
 				if(my_port.data_real[WIDTH*i + WIDTH - 1]) begin
-					tmp.data_real[i] = my_port.data_real[WIDTH*i +: WIDTH] / 1024 - 64;
+					tmp.data_real[i] = shortreal'(my_port.data_real[WIDTH*i +: WIDTH]) / 1024 - 64;
 				end else begin
-					tmp.data_real[i] = my_port.data_real[WIDTH*i +: WIDTH] / 1024;
+					tmp.data_real[i] = shortreal'(my_port.data_real[WIDTH*i +: WIDTH]) / 1024;
 				end
 				$display("MON %0d:%0d",i,tmp.data_real[i]);
 				tmp.data_imag[i] = my_port.data_imag[WIDTH*i +: WIDTH] / 1024;
