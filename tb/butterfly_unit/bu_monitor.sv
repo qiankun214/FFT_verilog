@@ -37,8 +37,12 @@ class bu_monitor #(parameter int NPOINT,parameter int WIDTH);
 				end else begin
 					tmp.data_real[i] = shortreal'(my_port.data_real[WIDTH*i +: WIDTH]) / 1024;
 				end
-				$display("MON %0d:%0d",i,tmp.data_real[i]);
-				tmp.data_imag[i] = my_port.data_imag[WIDTH*i +: WIDTH] / 1024;
+				// $display("MON %0d:%0d",i,tmp.data_real[i]);
+				if(my_port.data_imag[WIDTH*i + WIDTH - 1]) begin
+					tmp.data_imag[i] = shortreal'(my_port.data_imag[WIDTH*i +: WIDTH]) / 1024 - 64;
+				end else begin
+					tmp.data_imag[i] = shortreal'(my_port.data_imag[WIDTH*i +: WIDTH]) / 1024;
+				end
 			end
 			$display("MON:get one req finish");
 			dout_fifo.push_back(tmp);

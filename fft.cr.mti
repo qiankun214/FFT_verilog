@@ -1,11 +1,4 @@
-D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v {1 {vlog -work work -vopt -stats=none D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v
-Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
--- Compiling module butterfly
-
-Top level modules:
-	butterfly
-
-} {} {}} D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv {1 {vlog -work work -vopt -sv -stats=none D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv
+C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv
 Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
 -- Compiling interface bu_port
 -- Compiling package bu_top_sv_unit
@@ -13,5 +6,12 @@ Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
 
 Top level modules:
 	bu_top
+
+} {} {}} C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v {1 {vlog -work work -vopt -stats=none C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling module butterfly
+
+Top level modules:
+	butterfly
 
 } {} {}}
