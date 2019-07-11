@@ -140,9 +140,9 @@ def debug_fft8(data):
 if __name__ == '__main__':
 	# print(weight_generator(8,3),weight_generator(8,8+3))
 	len_log = 3
-	data = np.abs(np.random.randn(2**len_log))
-	# data = np.arange(2**len_log)
-	# data = np.ones(2 ** len_log) * 2
+	# data = np.abs(np.random.randn(2**len_log))
+	# data = np.arange(2**len_log) / 10
+	data = np.ones(2 ** len_log) / 10
 	print("input:",data)
 	result = sm.software_fft(data)
 	# print(type(result[0]))
@@ -154,8 +154,10 @@ if __name__ == '__main__':
 	print("hardware:\n",result_hd)
 	# plural_test()
 	print("compare:\n",np.sum(np.abs(result - result_hd)))
-<<<<<<< HEAD
-	# debug_fft8(data)
-=======
-	# debug_fft8(data)
->>>>>>> 5fa6a1fe7a3701a10fad4635f221548f852c73b1
+	print("W20",weight_generator(2,0))
+	print("W40",weight_generator(4,0))
+	print("W41",weight_generator(4,1))
+	print("W80",weight_generator(8,0))
+	print("W81",weight_generator(8,1))
+	print("W82",weight_generator(8,2))
+	print("W83",weight_generator(8,3))

@@ -1,34 +1,31 @@
 module full_parallel_fft #(
-	parameter NPOINT = 3,
+	parameter NPOINT = 2,
 	parameter WIDTH = 16
 )(
-	input clk,    // Clock
-	input rst_n,  // Asynchronous reset active low
-	
 	input clk,    // Clock
 	input rst_n,  // Asynchronous reset active low
 
 	// input
 	input din_valid,
-	output reg din_busy,
+	output din_busy,
 
 	input [WIDTH * (2 ** NPOINT) - 1:0] din_real,
 	input [WIDTH * (2 ** NPOINT) - 1:0] din_imag,
 
 	// output
-	output reg dout_valil,
-	output reg dout_busy,
+	output dout_valil,
+	input dout_busy,
 
-	output reg [WIDTH * (2 ** NPOINT) - 1:0] dout_real,
-	output reg [WIDTH * (2 ** NPOINT) - 1:0] dout_imag,
+	output [WIDTH * (2 ** NPOINT) - 1:0] dout_real,
+	output [WIDTH * (2 ** NPOINT) - 1:0] dout_imag,
 
 	input din_weight_valid,
 	input [WIDTH - 1:0] din_weight_real,
 	input [WIDTH - 1:0] din_weight_imag
 );
 
-wire [NPOINT * (2 ** (NPOINT - 1)) * WIDTH - 1:0]weight_real;
-wire [NPOINT * (2 ** (NPOINT - 1)) * WIDTH - 1:0]weight_imag;
+wire [ (NPOINT * (2 ** (NPOINT - 1))) * WIDTH - 1:0]weight_real;
+wire [ (NPOINT * (2 ** (NPOINT - 1))) * WIDTH - 1:0]weight_imag;
 weight_buffer #(
 	.NPOINT 	(NPOINT),
 	.WIDTH		(WIDTH)
@@ -48,15 +45,15 @@ localparam WEIG_WIDTH = WIDTH * (2 ** (NPOINT - 1));
 localparam TEMP_WIDTH = WIDTH * (2 ** NPOINT);
 genvar i;
 
-logic 					   	pe_din_valid 	[ NPOINT - 1:0 ];
-logic 					   	pe_din_busy 	[ NPOINT - 1:0 ];
-logic [ TEMP_WIDTH - 1:0 ] 	pe_din_real 	[ NPOINT - 1:0 ];
-logic [ TEMP_WIDTH - 1:0 ] 	pe_din_imag 	[ NPOINT - 1:0 ];
+wire 					   	pe_din_valid 	[ NPOINT - 1:0 ];
+wire 					   	pe_din_busy 	[ NPOINT - 1:0 ];
+wire [ TEMP_WIDTH - 1:0 ] 	pe_din_real 	[ NPOINT - 1:0 ];
+wire [ TEMP_WIDTH - 1:0 ] 	pe_din_imag 	[ NPOINT - 1:0 ];
 
-logic 					   	pe_dout_valid 	[ NPOINT - 1:0 ];
-logic 					   	pe_dout_busy 	[ NPOINT - 1:0 ];
-logic [ TEMP_WIDTH - 1:0 ] 	pe_dout_real 	[ NPOINT - 1:0 ];
-logic [ TEMP_WIDTH - 1:0 ] 	pe_dout_imag 	[ NPOINT - 1:0 ];
+wire 					   	pe_dout_valid 	[ NPOINT - 1:0 ];
+wire 					   	pe_dout_busy 	[ NPOINT - 1:0 ];
+wire [ TEMP_WIDTH - 1:0 ] 	pe_dout_real 	[ NPOINT - 1:0 ];
+wire [ TEMP_WIDTH - 1:0 ] 	pe_dout_imag 	[ NPOINT - 1:0 ];
 generate
 	for (i = 0; i < NPOINT; i = i + 1) begin:butterfly_unit
 
@@ -70,7 +67,7 @@ generate
 			assign pe_din_valid[i] 	=	pe_dout_valid[i-1]	;
 			assign pe_dout_busy[i-1]=	pe_din_busy[i]		;
 			assign pe_din_real[i]	=	pe_dout_real[i-1]	;
-			assign pe_din_busy[i]	=	pe_dout_imag[i-1]	;
+			assign pe_din_imag[i]	=	pe_dout_imag[i-1]	;
 		end
 
 		butterfly#(
@@ -96,8 +93,8 @@ generate
 			.dout_imag(pe_dout_imag[i]),
 
 			// weight
-			.din_weight_real(din_weight_real[ i * WEIG_WIDTH +: WEIG_WIDTH ]),
-			.din_weight_imag(din_weight_imag[ i * WEIG_WIDTH +: WEIG_WIDTH ])
+			.din_weight_real(weight_real[ i * WEIG_WIDTH +: WEIG_WIDTH ]),
+			.din_weight_imag(weight_imag[ i * WEIG_WIDTH +: WEIG_WIDTH ])
 		);
 	end
 endgenerate

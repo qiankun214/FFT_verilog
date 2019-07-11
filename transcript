@@ -14,349 +14,98 @@
 # //
 # OpenFile D:/NNBase_myself/DSP/FFT/fft.mpf
 # Loading project fft
-# Error opening C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv
-# Path name 'C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv' doesn't exist.
-# Error opening C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv
-# Path name 'C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv' doesn't exist.
+# Compile of butterfly.v failed with 2 errors.
+# Compile of full_parallel_fft.v failed with 5 errors.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv failed with 7 errors.
+# 4 compiles, 3 failed with 14 errors.
 # Compile of butterfly.v was successful.
-# Compile of bu_top.sv failed with 2 errors.
-# 2 compiles, 1 failed with 2 errors.
+# Compile of full_parallel_fft.v failed with 5 errors.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv failed with 7 errors.
+# 4 compiles, 2 failed with 12 errors.
 # Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful with warnings.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:27:48 on Jul 10,2019
-# ** Error: (vsim-7) Failed to open info file "C:/Users/qiank/Desktop/FFT/FFT_verilog/work/_info" in read mode.
-# No such file or directory. (errno = ENOENT)
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Error: (vopt-7) Failed to open info file "C:/Users/qiank/Desktop/FFT/FFT_verilog/work/_info" in read mode.
-# No such file or directory. (errno = ENOENT)
-# Optimization failed
-# ** Error: (vopt-1933) Unable to create temporary directory C:/Users/qiank/Desktop/FFT/FFT_verilog/work/_tempmsg
-# No such file or directory. (errno = ENOENT)
-# Error loading design
-# Error: Error loading design
-#        Pausing macro execution
-# MACRO ./script/bu_test.do PAUSED at line 1
+# Compile of full_parallel_fft.v failed with 4 errors.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv failed with 7 errors.
+# 4 compiles, 2 failed with 11 errors.
 # Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-OpenFile D:/NNBase_myself/DSP/FFT/fft.mpf
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:27:48 on Jul 10,2019
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv failed with 7 errors.
+# 4 compiles, 1 failed with 7 errors.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv failed with 7 errors.
+# Compile of bu_driver.sv was successful.
+# Compile of bu_monitor.sv was successful.
+# Compile of bu_transaction.sv was successful.
+# 7 compiles, 1 failed with 7 errors.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv failed with 1 errors.
+# Compile of bu_driver.sv was successful.
+# Compile of bu_monitor.sv was successful.
+# Compile of bu_transaction.sv was successful.
+# 7 compiles, 1 failed with 1 error.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv was successful.
+# Compile of bu_driver.sv was successful.
+# Compile of bu_monitor.sv was successful.
+# Compile of bu_transaction.sv was successful.
+# 7 compiles, 0 failed with no errors.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv was successful.
+# Compile of bu_driver.sv was successful.
+# Compile of bu_monitor.sv was successful.
+# Compile of bu_transaction.sv was successful.
+# 7 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.fpf_top
+# vsim -voptargs="+acc" work.fpf_top 
+# Start time: 21:47:17 on Jul 11,2019
 # ** Note: (vsim-3812) Design is being optimized...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:1
-# MON 2:2
-# MON 3:0
-# MON 4:3
-# MON 5:4294967295
-# MON 6:4
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, 4, -1, 3, 0, 2, 1, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(111)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case1 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 111
+# ** Error (suppressible): (vopt-2732) D:/NNBase_myself/DSP/FFT/tb/full_parallel_fft/fpf_top.sv(24): Module parameter 'STEP' not found for override.
+# Optimization failed
+# Error loading design
 # Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:31:45 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of fpf_top.sv was successful.
+# Compile of bu_driver.sv was successful.
+# Compile of bu_monitor.sv was successful.
+# Compile of bu_transaction.sv was successful.
+# 7 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.fpf_top
+# vsim -voptargs="+acc" work.fpf_top 
+# Start time: 21:47:43 on Jul 11,2019
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(96): (vopt-2697) End index of part-select into 'din_weight_real' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(97): (vopt-2697) End index of part-select into 'din_weight_imag' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(96): (vopt-2697) Start index of part-select into 'din_weight_real' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(96): (vopt-2697) End index of part-select into 'din_weight_real' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(97): (vopt-2697) Start index of part-select into 'din_weight_imag' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(97): (vopt-2697) End index of part-select into 'din_weight_imag' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(96): (vopt-2697) Start index of part-select into 'din_weight_real' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(96): (vopt-2697) End index of part-select into 'din_weight_real' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(97): (vopt-2697) Start index of part-select into 'din_weight_imag' is out of bounds.
+# ** Warning: D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v(97): (vopt-2697) End index of part-select into 'din_weight_imag' is out of bounds.
 # Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
+# Loading work.fpf_top_sv_unit(fast)
+# Loading work.fpf_top(fast)
 # Loading work.bu_port(fast)
+# Loading work.weight_if(fast)
+# Loading work.full_parallel_fft(fast)
+# Loading work.weight_buffer(fast)
 # Loading work.butterfly(fast)
+# Loading work.butterfly(fast__1)
+# Loading work.butterfly(fast__2)
 # Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:1
-# MON 2:2
-# MON 3:0
-# MON 4:3
-# MON 5:4294967295
-# MON 6:4
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, 4, -1, 3, 0, 2, 1, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(111)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case1 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 111
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:32:42 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:1
-# MON 2:2
-# MON 3:0
-# MON 4:3
-# MON 5:4294967295
-# MON 6:4
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, 4, -1, 3, 0, 2, 1, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(111)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case1 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 111
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:33:12 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:1
-# MON 2:2
-# MON 3:0
-# MON 4:3
-# MON 5:4294967295
-# MON 6:4
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, 4, -1, 3, 0, 2, 1, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(130)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case2 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 130
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:35:24 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case2:begin
-# '{-1, -1, -1, -1, -1, -1, -1, -1}
-# Case2:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:1
-# MON 2:2
-# MON 3:0
-# MON 4:3
-# MON 5:4294967295
-# MON 6:4
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, 4, -1, 3, 0, 2, 1, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(131)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case2 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 131
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:36:14 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case2:begin
-# '{-1, -1, -1, -1, -1, -1, -1, -1}
-# Case2:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:4294967295
-# MON 1:4294967295
-# MON 2:4294967294
-# MON 3:0
-# MON 4:4294967293
-# MON 5:1
-# MON 6:4294967292
-# MON 7:2
-# MON:get one req finish
-# '{2, -4, 1, -3, 0, -2, -1, -1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(131)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case2 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 131
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:37:04 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:2
-# MON 2:1
-# MON 3:0
-# MON 4:3
-# MON 5:4
-# MON 6:4294967295
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, -1, 4, 3, 0, 1, 2, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(111)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case1 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 111
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:39:30 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:1
-# MON 1:2
-# MON 2:3
-# MON 3:4
-# MON 4:1
-# MON 5:0
-# MON 6:4294967295
-# MON 7:4294967294
-# MON:get one req finish
-# '{-2, -1, 0, 1, 4, 3, 2, 1}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(111)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case1 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 111
-# Compile of butterfly.v was successful.
-# Compile of bu_top.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/bu_test.do
-# vsim -voptargs=""+acc"" work.bu_top 
-# Start time: 21:46:28 on Jul 10,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# Loading sv_std.std
-# Loading work.bu_top_sv_unit(fast)
-# Loading work.bu_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.butterfly(fast)
-# Loading work.bu_port(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# Case3:begin
-# '{7, 6, 5, 4, 3, 2, 1, 0}
-# Case3:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON 0:0
-# MON 1:0
-# MON 2:5
-# MON 3:4294967295
-# MON 4:14
-# MON 5:4294967290
-# MON 6:27
-# MON 7:4294967281
-# MON:get one req finish
-# '{-15, 27, -6, 14, -1, 5, 0, 0}
-# ** Note: $stop    : D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv(151)
-#    Time: 45 ns  Iteration: 1  Instance: /bu_top
-# Break in Task case3 at D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_top.sv line 151
-# End time: 21:48:13 on Jul 10,2019, Elapsed time: 0:01:45
-# Errors: 0, Warnings: 0
+# Loading work.weight_if(fast)
+# End time: 21:47:49 on Jul 11,2019, Elapsed time: 0:00:06
+# Errors: 0, Warnings: 10

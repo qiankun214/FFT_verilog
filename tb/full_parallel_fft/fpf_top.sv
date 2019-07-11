@@ -1,10 +1,11 @@
 
 // `include "bu_env.sv"
-`include "bu_driver.sv"
-`include "bu_monitor.sv"
+`include "../butterfly_unit/bu_driver.sv"
+`include "../butterfly_unit/bu_monitor.sv"
+`include "weight_driver.sv"
 // `include "bu_transaction.sv"
 
-module bu_top ();
+module fpf_top ();
 
 parameter NPOINT = 3;
 parameter WIDTH = 16;
@@ -13,15 +14,12 @@ parameter STEP = 0;
 logic clk,rst_n;
 bu_port#( WIDTH * (2 ** NPOINT) ) drv_if(clk);
 bu_port#( WIDTH * (2 ** NPOINT) ) mon_if(clk);
-
-logic [WIDTH * (2 ** (NPOINT - 1)) - 1:0] weight_real;
-logic [WIDTH * (2 ** (NPOINT - 1)) - 1:0] weight_imag;
+weight_if#( WIDTH ) cfg_if(clk);
 
 
-butterfly#(
+full_parallel_fft #(
 	.WIDTH		(WIDTH	),
-	.NPOINT 	(NPOINT ),
-	.STEP		(STEP	)
+	.NPOINT 	(NPOINT )
 ) dut (
 	.clk(clk),    // Clock
 	.rst_n(rst_n),  // Asynchronous reset active low
@@ -41,17 +39,19 @@ butterfly#(
 	.dout_imag(mon_if.data_imag),
 
 	// weight
-	.din_weight_real(weight_real),
-	.din_weight_imag(weight_imag)
+	.din_weight_valid(cfg_if.valid),
+	.din_weight_real(cfg_if.data_real),
+	.din_weight_imag(cfg_if.data_imag)
 );
 
-	bu_driver#(NPOINT,WIDTH) drv;
-	bu_monitor#(NPOINT,WIDTH) mon;
+bu_driver#(NPOINT,WIDTH) drv;
+bu_monitor#(NPOINT,WIDTH) mon;
+weight_driver#(NPOINT,WIDTH) cfg;
 // bn_env#(NPOINT,WIDTH) tb;
 
 initial begin
 	clk = 1'b0;
-	forever begin
+	repeat(10000) begin
 		#5 clk = ~clk;
 	end
 end
@@ -62,14 +62,25 @@ initial begin
 	#1 rst_n = 1'b0;
 	#1 rst_n = 1'b1;
 end
+
+// initial begin : lab
+// 	logic [2:0] a = 3'd2;
+// 	$display("%0d",a[0:2]);
+// end
+
 // config
 initial begin
+	weight_transaction#(NPOINT) cfg_tmp;
+	cfg_tmp = new();
 	drv = new(drv_if);
 	mon = new(mon_if);
-	weight_imag = 'b0;
-	for (int i = 0; i < 2 ** NPOINT; i++) begin
-		weight_real[i * WIDTH +: WIDTH ] = (WIDTH)'(i * 1024);
-	end
+	cfg = new(cfg_if);
+	cfg_tmp.weight_generater_8();
+	cfg.cfg(cfg_tmp);
+	// weight_imag = 'b0;
+	// for (int i = 0; i < 2 ** NPOINT; i++) begin
+		// weight_real[i * WIDTH +: WIDTH ] = (WIDTH)'(i * 1024);
+	// end
 end
 
 // send
@@ -97,7 +108,7 @@ task case1();
 	$display("Case1:begin");
 	req = new();
 	for (int i = 0; i < 2 ** NPOINT; i++) begin
-		req.data_real[i] = 1;
+		req.data_real[i] = 1 / 10;
 		req.data_imag[i] = 0;
 	end
 	$display("Case1:data generate finish");
@@ -108,12 +119,17 @@ task case1();
 	end while(!mon.is_noempty());
 	req = mon.dout_fifo.pop_front();
 	$display("%p",req.data_real);
+	$display("%p",req.data_imag);
 	$stop;
 endtask : case1
 
 initial begin
-	@(posedge clk);
-	case4();
+	repeat(16) @(posedge clk);
+	while(cfg_if.valid) begin
+		@(posedge clk);
+	end
+	repeat(16) @(posedge clk);
+	case1();
 end
 
 endmodule

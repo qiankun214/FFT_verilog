@@ -1,17 +1,60 @@
-C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/butterfly_unit/bu_top.sv
-Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
--- Compiling interface bu_port
--- Compiling package bu_top_sv_unit
--- Compiling module bu_top
-
-Top level modules:
-	bu_top
-
-} {} {}} C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v {1 {vlog -work work -vopt -stats=none C:/Users/qiank/Desktop/FFT/FFT_verilog/src/full_parallel_fft/butterfly.v
+D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v {1 {vlog -work work -vopt -stats=none D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/butterfly.v
 Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
 -- Compiling module butterfly
 
 Top level modules:
 	butterfly
+
+} {} {}} D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/weight_buffer.v {1 {vlog -work work -vopt -stats=none D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/weight_buffer.v
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling module weight_buffer
+
+Top level modules:
+	weight_buffer
+
+} {} {}} D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_driver.sv {1 {vlog -work work -vopt -sv -stats=none D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_driver.sv
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling interface bu_port
+
+Top level modules:
+	--none--
+
+} {} {}} D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_monitor.sv {1 {vlog -work work -vopt -sv -stats=none D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_monitor.sv
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling interface bu_port
+
+Top level modules:
+	--none--
+
+} {} {}} D:/NNBase_myself/DSP/FFT/tb/full_parallel_fft/weight_transaction.sv {1 {vlog -work work -vopt -sv -stats=none D:/NNBase_myself/DSP/FFT/tb/full_parallel_fft/weight_transaction.sv
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling interface weight_if
+
+Top level modules:
+	--none--
+
+} {} {}} D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v {1 {vlog -work work -vopt -stats=none D:/NNBase_myself/DSP/FFT/src/full_parallel_fft/full_parallel_fft.v
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling module full_parallel_fft
+
+Top level modules:
+	full_parallel_fft
+
+} {} {}} D:/NNBase_myself/DSP/FFT/tb/full_parallel_fft/fpf_top.sv {1 {vlog -work work -vopt -sv -stats=none D:/NNBase_myself/DSP/FFT/tb/full_parallel_fft/fpf_top.sv
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling interface bu_port
+-- Compiling package fpf_top_sv_unit
+-- Compiling interface weight_if
+-- Compiling module fpf_top
+
+Top level modules:
+	fpf_top
+
+} {} {}} D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_transaction.sv {1 {vlog -work work -vopt -sv -stats=none D:/NNBase_myself/DSP/FFT/tb/butterfly_unit/bu_transaction.sv
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+-- Compiling interface bu_port
+
+Top level modules:
+	--none--
 
 } {} {}}

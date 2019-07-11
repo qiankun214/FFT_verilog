@@ -10,12 +10,14 @@ class weight_driver #(parameter int NPOINT,parameter int WIDTH);
 	function new(virtual weight_if#(WIDTH) my_if);
 		weight_port = my_if;
 		weight_port.valid = 'b0;
-		weight_port.data = 'b0;
+		weight_port.data_real = 'b0;
+		weight_port.data_imag = 'b0;
 	endfunction : new
 
 	task cfg(weight_transaction#(NPOINT) cfg_pkg);
 		for (int i = NPOINT - 1; i >= 0; i--) begin
-			for (int j = 2 ** (NPOINT - 1) - 1; j < 0; j--) begin
+			for (int j = 2 ** (NPOINT - 1) - 1; j >= 0; j--) begin
+				$display("WEGH:once");
 				if(cfg_pkg.data_real[i][j] >= 0) begin
 					weight_port.data_real = int'(cfg_pkg.data_real[i][j] * 1024);
 				end else begin
