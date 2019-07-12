@@ -64,8 +64,9 @@ initial begin
 end
 
 // initial begin : lab
-// 	logic [2:0] a = 3'd2;
-// 	$display("%0d",a[0:2]);
+// 	logic [2:0] b = 1;
+// 	logic [0:2] a = b;
+// 	$display("LAB:a=%0d",a);
 // end
 
 // config
@@ -108,7 +109,7 @@ task case1();
 	$display("Case1:begin");
 	req = new();
 	for (int i = 0; i < 2 ** NPOINT; i++) begin
-		req.data_real[i] = 1 / 10;
+		req.data_real[i] = i / 10;
 		req.data_imag[i] = 0;
 	end
 	$display("Case1:data generate finish");

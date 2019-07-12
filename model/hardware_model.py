@@ -141,8 +141,8 @@ if __name__ == '__main__':
 	# print(weight_generator(8,3),weight_generator(8,8+3))
 	len_log = 3
 	# data = np.abs(np.random.randn(2**len_log))
-	# data = np.arange(2**len_log) / 10
-	data = np.ones(2 ** len_log) / 10
+	data = np.arange(2**len_log) / 10
+	# data = np.ones(2 ** len_log) / 10
 	print("input:",data)
 	result = sm.software_fft(data)
 	# print(type(result[0]))

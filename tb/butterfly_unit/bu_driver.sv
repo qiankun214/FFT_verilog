@@ -35,16 +35,23 @@ class bu_driver #(parameter int NPOINT,parameter int WIDTH);
 		$display("DRV:start one req");
 		tmp = din_fifo.pop_front();
 		for (int i = 0; i < 2 ** NPOINT; i++) begin
-			if(tmp.data_real[i] >= 0) begin
-				my_port.data_real[i*WIDTH +: WIDTH] = int'(tmp.data_real[i] * 1024);
-			end else begin
-				my_port.data_real[i*WIDTH +: WIDTH] = 2 ** WIDTH + int'(tmp.data_real[i] * 1024);
+			logic [NPOINT - 1:0] tmp_i = (NPOINT)'(i);
+			logic [NPOINT - 1:0] index;
+			for (int r = 0; r < NPOINT; r++) begin
+				index[r] = tmp_i[NPOINT-1-r];
 			end
 
-			if(tmp.data_imag[i] >= 0) begin
-				my_port.data_imag[i*WIDTH +: WIDTH] = int'(tmp.data_imag[i] * 1024);
+			$display("%0d -> %0d",i,index);
+			if(tmp.data_real[index] >= 0) begin
+				my_port.data_real[i*WIDTH +: WIDTH] = int'(tmp.data_real[index] * 1024);
 			end else begin
-				my_port.data_imag[i*WIDTH +: WIDTH] = 2 ** WIDTH + int'(tmp.data_imag[i] * 1024);
+				my_port.data_real[i*WIDTH +: WIDTH] = 2 ** WIDTH + int'(tmp.data_real[index] * 1024);
+			end
+
+			if(tmp.data_imag[index] >= 0) begin
+				my_port.data_imag[i*WIDTH +: WIDTH] = int'(tmp.data_imag[index] * 1024);
+			end else begin
+				my_port.data_imag[i*WIDTH +: WIDTH] = 2 ** WIDTH + int'(tmp.data_imag[index] * 1024);
 			end
 		end
 		my_port.valid = 1'b1;
