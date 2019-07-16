@@ -136,7 +136,6 @@ def debug_fft8(data):
 		result[i],result[i+4] = butterfly(op1,op2,w)
 	print("half-software\n",result_generator_from_plural(result),"\nsoftware\n",sm.software_fft(data))
 
-
 if __name__ == '__main__':
 	# print(weight_generator(8,3),weight_generator(8,8+3))
 	len_log = 3
@@ -147,7 +146,7 @@ if __name__ == '__main__':
 	result = sm.software_fft(data)
 	# print(type(result[0]))
 	print("software:\n",result)
-
+	
 	data_hd = data_generator_from_real(data)
 	result_hd = parallel_fft_8(data_hd,len_log)
 	result_hd = result_generator_from_plural(result_hd)

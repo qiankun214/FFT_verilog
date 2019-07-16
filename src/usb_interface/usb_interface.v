@@ -32,8 +32,10 @@ module usb_interface #(parameter int NPOINT = 3)(
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_imag
 );
 // usb
-wire is_din;
-wire is_dout;
+wire is_dinfifo_empty;
+wire is_doutfifo_full;
+wire is_din = !fx2_slcs_n && !fx2_sloe_n && !fx2_slrd_n && !is_dinfifo_empty;
+wire is_dout = !fx2_slcs_n && fx2_sloe_n && !fx2_slwr_n && !is_doutfifo_full;
 
 // din fsm
 localparam INIT = 2'b00;
@@ -174,5 +176,87 @@ always @ (*) begin
 		default:next_dout_mode <= DOUT_INIT;
 	endcase
 end
+
+// usb interface
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fx2_slcs_n <= 1'b1;
+	end else if(din_mode != INIT || dout_mode != DOUT_INIT) begin
+		fx2_slcs_n <= 1'b0;
+	end else begin
+		fx2_slcs_n <= 1'b1;
+	end
+end
+
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fx2_sloe_n <= 1'b1;
+	end else if(din_mode != INIT) begin
+		fx2_sloe_n <= 1'b0;
+	end else if(dout_mode != DOUT_INIT) begin
+		fx2_sloe_n <= 1'b1;
+	end
+end
+
+reg [1:0] cs_delay;
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		cs_delay <= 'b0;
+	end else if(fx2_slcs_n && cs_delay != 2'd2) begin
+		cs_delay <= cs_delay + 1'b1;
+	end else if(!fx2_slcs_n) begin
+		cs_delay <= 'b0;
+	end
+end
+
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fx2_slrd_n <= 1'b1;
+		fx2_slwr_n <= 1'b1;
+	end else if(din_mode != INIT && cs_delay == 2'd2) begin
+		fx2_slrd_n <= 1'b0;
+		fx2_slwr_n <= 1'b1;
+	end else if(dout_mode != DOUT_INIT && cs_delay == 2'd2) begin
+		fx2_slrd_n <= 1'b1;
+		fx2_slwr_n <= 1'b0;
+	end else begin
+		fx2_slrd_n <= 1'b1;
+		fx2_slwr_n <= 1'b1;
+	end
+end
+
+integer i;
+reg [15:0] fx2_dout_real [2 ** NPOINT - 1:0];
+reg [15:0] fx2_dout_imag [2 ** NPOINT - 1:0];
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		for (int i = 0; i < 2 ** NPOINT; i = i + 1) begin
+			fx2_dout_real[i] <= 'b0;
+			fx2_dout_imag[i] <= 'b0;
+		end
+	end else if(fft_dout_valid && !fft_dout_busy) begin
+		for (int i = 0; i < 2 ** NPOINT; i = i + 1) begin
+			fx2_dout_real[i] <= fft_dout_real[i*16 +: 16];
+			fx2_dout_imag[i] <= fft_dout_imag[i*16 +: 16];
+		end
+	end
+end
+
+reg [15:0] fx2_dout;
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fx2_dout <= 'b0;
+	end else if(dout_mode == DOUT_WORK && fx2_sloe_n == 1'b1) begin
+		if(is_dout && result_count[0] == 1'b0) begin
+			fx2_dout <= fx2_dout_imag[result_count[NPOINT:1] + 1'b1];
+		end else(is_dout && result_count[0] == 1'b1) begin
+			fx2_dout <= fx2_dout_real[result_count[NPOINT:1] + 1'b1];
+		end
+	end else begin
+		fx2_dout <= fx2_dout_real[0];
+	end
+end
+
+assign fx2_db == (fx2_sloe_n)?fx2_dout:'bz;
 
 endmodule
