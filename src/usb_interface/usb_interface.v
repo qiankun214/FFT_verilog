@@ -1,4 +1,4 @@
-module usb_interface #(parameter int NPOINT = 3)(
+module usb_interface #(parameter NPOINT = 3)(
 	input clk,    // Clock
 	input rst_n,  // Asynchronous reset active low
 	
@@ -12,6 +12,7 @@ module usb_interface #(parameter int NPOINT = 3)(
 	output reg fx2_slwr_n,
 	output reg fx2_slrd_n,
 	output reg fx2_sloe_n,
+	output reg fx2_pktend,
 	output reg [1:0]fx2_a,
 
 	inout [15:0] fx2_db,
@@ -22,18 +23,18 @@ module usb_interface #(parameter int NPOINT = 3)(
 	output reg [15:0]fft_weight_imag,
 
 	output reg fft_din_valid,
-	input fft_din_busy
+	input fft_din_busy,
 	output reg [16 * (2 ** NPOINT) - 1:0] fft_din_real,
 	output reg [16 * (2 ** NPOINT) - 1:0] fft_din_imag,
 
 	input fft_dout_valid,
-	output reg fft_dout_busy,
+	output fft_dout_busy,
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_real,
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_imag
 );
 // usb
-wire is_dinfifo_empty;
-wire is_doutfifo_full;
+wire is_dinfifo_empty = fx2_flaga; // for test
+wire is_doutfifo_full = fx2_flagb; // for test
 wire is_din = !fx2_slcs_n && !fx2_sloe_n && !fx2_slrd_n && !is_dinfifo_empty;
 wire is_dout = !fx2_slcs_n && fx2_sloe_n && !fx2_slwr_n && !is_doutfifo_full;
 
@@ -42,6 +43,7 @@ localparam INIT = 2'b00;
 localparam WIGH = 2'b01;
 localparam DATA = 2'b11;
 
+reg [1:0] din_mode,next_din_mode;
 reg [NPOINT + NPOINT - 1:0] weight_count;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
@@ -60,7 +62,6 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-reg [1:0] din_mode,next_din_mode;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		din_mode <= 'b0;
@@ -139,6 +140,7 @@ end
 // dout fsm
 localparam DOUT_INIT = 1'b0;
 localparam DOUT_WORK = 1'b1;
+reg dout_mode,next_dout_mode;
 reg [NPOINT:0] result_count;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
@@ -148,7 +150,6 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-reg dout_mode,next_dout_mode;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		dout_mode <= DOUT_INIT;
@@ -177,6 +178,7 @@ always @ (*) begin
 	endcase
 end
 
+assign fft_dout_busy = dout_mode;
 // usb interface
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
@@ -225,17 +227,23 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fx2_pktend <= 'b0;
+	end
+end
+
 integer i;
 reg [15:0] fx2_dout_real [2 ** NPOINT - 1:0];
 reg [15:0] fx2_dout_imag [2 ** NPOINT - 1:0];
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		for (int i = 0; i < 2 ** NPOINT; i = i + 1) begin
+		for (i = 0; i < 2 ** NPOINT; i = i + 1) begin
 			fx2_dout_real[i] <= 'b0;
 			fx2_dout_imag[i] <= 'b0;
 		end
 	end else if(fft_dout_valid && !fft_dout_busy) begin
-		for (int i = 0; i < 2 ** NPOINT; i = i + 1) begin
+		for (i = 0; i < 2 ** NPOINT; i = i + 1) begin
 			fx2_dout_real[i] <= fft_dout_real[i*16 +: 16];
 			fx2_dout_imag[i] <= fft_dout_imag[i*16 +: 16];
 		end
@@ -249,7 +257,7 @@ always @ (posedge clk or negedge rst_n) begin
 	end else if(dout_mode == DOUT_WORK && fx2_sloe_n == 1'b1) begin
 		if(is_dout && result_count[0] == 1'b0) begin
 			fx2_dout <= fx2_dout_imag[result_count[NPOINT:1] + 1'b1];
-		end else(is_dout && result_count[0] == 1'b1) begin
+		end else if(is_dout && result_count[0] == 1'b1) begin
 			fx2_dout <= fx2_dout_real[result_count[NPOINT:1] + 1'b1];
 		end
 	end else begin
@@ -257,6 +265,6 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-assign fx2_db == (fx2_sloe_n)?fx2_dout:'bz;
+assign fx2_db = (fx2_sloe_n)?fx2_dout:'bz;
 
 endmodule
