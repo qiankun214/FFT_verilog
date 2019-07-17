@@ -12,7 +12,7 @@ module usb_interface #(parameter NPOINT = 3)(
 	output reg fx2_slwr_n,
 	output reg fx2_slrd_n,
 	output reg fx2_sloe_n,
-	output reg fx2_pktend,
+	output reg fx2_pktend_n,
 	output reg [1:0]fx2_a,
 
 	inout [15:0] fx2_db,
@@ -32,158 +32,114 @@ module usb_interface #(parameter NPOINT = 3)(
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_real,
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_imag
 );
-// usb
-wire is_dinfifo_empty = fx2_flaga; // for test
-wire is_doutfifo_full = fx2_flagb; // for test
-wire is_din = !fx2_slcs_n && !fx2_sloe_n && !fx2_slrd_n && !is_dinfifo_empty;
-wire is_dout = !fx2_slcs_n && fx2_sloe_n && !fx2_slwr_n && !is_doutfifo_full;
+// fx2 data
+wire is_fx2_din;
+wire is_fx2_dout;
 
-// din fsm
-localparam INIT = 2'b00;
-localparam WIGH = 2'b01;
-localparam DATA = 2'b11;
+wire is_fx2_din_noempty;
 
-reg [1:0] din_mode,next_din_mode;
-reg [NPOINT + NPOINT - 1:0] weight_count;
+// fft
+wire is_fft_dout = fft_dout_valid && !fft_dout_busy;
+
+// fsm
+reg [ 2:0 ] mode,next_mode;
+localparam REST = 3'd000;
+localparam WEIG = 3'd001;
+localparam INIT = 3'd011;
+localparam DIND = 3'd010;
+localparam DOUT = 3'd111;
+
+reg [ NPOINT + NPOINT - 1:0 ] weight_counte;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		weight_count <= 'b0;
-	end else if(din_mode == WIGH && is_din) begin
-		weight_count <= weight_count + 1'b1;
+		weight_counte <= 'b0;
+	end else if(mode == WEIG && is_fx2_din) begin
+		weight_counte <= weight_counte + 1'b1;
 	end
 end
 
-reg [NPOINT:0] data_count;
+reg [ NPOINT - 1:0 ] din_counte;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		data_count <= 'b0;
-	end else if(din_mode == DATA && is_din) begin
-		data_count <= data_count + 1'b1;
+		din_counte <= 'b0;
+	end else if(mode == DIND && is_fx2_din) begin
+		din_counte <= din_counte + 1'b1;
+	end else if(mode == INIT) begin
+		din_counte <= 'b0;
+	end
+end
+
+reg [ NPOINT - 1:0 ] dout_counte;
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		dout_counte <= 'b0;
+	end else if(mode == DOUT && is_fx2_dout) begin
+		dout_counte <= dout_counte + 1'b1;
+	end else if(mode == INIT) begin
+		dout_counte <= 'b0;
 	end
 end
 
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		din_mode <= 'b0;
+		mode <= REST;
 	end else begin
-		din_mode <= next_din_mode;
+		mode <= next_mode;
 	end
 end
 
+localparam WEIGHT_NUM = NPOINT * (2 ** (NPOINT - 1)) - 1;
+localparam TRAN_NUM = 2 ** NPOINT - 1;
 always @ (*) begin
-	case (din_mode)
-		INIT:next_din_mode = WIGH;
-		WIGH:begin
-			if(weight_count == 2 * NPOINT * (2 ** (NPOINT - 1)) && is_din) begin
-				next_din_mode = DATA;
+	case (mode)
+		REST:next_mode = WEIG;
+		WEIG:begin
+			if(weight_counte == WEIGHT_NUM && is_fx2_din) begin
+				next_mode = INIT;
 			end else begin
-				next_din_mode = WIGH;
+				next_mode = WEIG;
 			end
 		end
-		DATA:next_din_mode = DATA;
-		default:next_din_mode = INIT;
+		INIT:begin
+			if(is_fft_dout) begin
+				next_mode = DOUT;
+			end else if(is_fx2_din_noempty) begin
+				next_mode = DIND;
+			end else begin
+				next_mode = INIT;
+			end
+		end
+		DIND:begin
+			if(din_counte == TRAN_NUM && is_fx2_din) begin
+				next_mode = INIT;
+			end else begin
+				next_mode = DIND;
+			end
+		end
+		DOUT:begin
+			if(dout_counte == TRAN_NUM && is_fx2_dout) begin
+				next_mode = INIT;
+			end else begin
+				next_mode = DOUT;
+			end
+		end
+		default:next_mode = REST;
 	endcase
 end
 
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fft_weight_valid <= 'b0;
-	end else if(din_mode == WIGH && is_din) begin
-		fft_weight_valid <= weight_count[0];
-	end else begin
-		fft_weight_valid <= 'b0;
-	end
-end
+	// output reg fx2_slcs_n,
+	// output reg fx2_slwr_n,
+	// output reg fx2_slrd_n,
+	// output reg fx2_sloe_n,
+	// output reg fx2_pktend,
+	// output reg [1:0]fx2_a,
 
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fft_weight_real <= 'b0;
-	end else if(din_mode == WIGH && is_din && !weight_count[0]) begin
-		fft_weight_real <= fx2_db;
-	end
-end
+	// inout [15:0] fx2_db,
 
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fft_weight_imag <= 'b0;
-	end else if(din_mode == WIGH && is_din && weight_count[0]) begin
-		fft_weight_imag <= fx2_db;
-	end
-end
-
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fft_din_real <= 'b0;
-	end else if(din_mode == DATA && is_din && !data_count[0]) begin
-		fft_din_real <= {fx2_db,fft_din_real[16 * (2 ** NPOINT) - 1:15]};
-	end
-end
-
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fft_din_imag <= 'b0;
-	end else if(din_mode == DATA && is_din && data_count[0]) begin
-		fft_din_imag <= {fx2_db,fft_din_imag[16 * (2 ** NPOINT) - 1:15]};
-	end
-end
-
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fft_din_valid <= 'b0;
-	end else if(din_mode == DATA && is_din && data_count[0] == 2 ** (NPOINT+1)-1) begin
-		fft_din_valid <= 1'b1;
-	end else begin
-		fft_din_valid <= 'b0;
-	end
-end
-
-// dout fsm
-localparam DOUT_INIT = 1'b0;
-localparam DOUT_WORK = 1'b1;
-reg dout_mode,next_dout_mode;
-reg [NPOINT:0] result_count;
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		result_count <= 'b0;
-	end else if(dout_mode == DOUT_WORK && is_dout) begin
-		result_count <= result_count + 1'b1;
-	end
-end
-
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		dout_mode <= DOUT_INIT;
-	end else begin
-		dout_mode <= next_din_mode;
-	end
-end
-
-always @ (*) begin
-	case (dout_mode)
-		DOUT_INIT:begin
-			if(fft_dout_valid) begin
-				next_dout_mode <= DOUT_WORK;
-			end else begin
-				next_dout_mode <= DOUT_INIT;
-			end
-		end
-		DOUT_WORK:begin
-			if(result_count == 2 ** (NPOINT+1)-1 && is_dout) begin
-				next_dout_mode <= DOUT_INIT;
-			end else begin
-				next_dout_mode <= DOUT_WORK;
-			end
-		end
-		default:next_dout_mode <= DOUT_INIT;
-	endcase
-end
-
-assign fft_dout_busy = dout_mode;
-// usb interface
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		fx2_slcs_n <= 1'b1;
-	end else if(din_mode != INIT || dout_mode != DOUT_INIT) begin
+	end else if(next_mode != REST && next_mode != INIT) begin
 		fx2_slcs_n <= 1'b0;
 	end else begin
 		fx2_slcs_n <= 1'b1;
@@ -193,21 +149,23 @@ end
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		fx2_sloe_n <= 1'b1;
-	end else if(din_mode != INIT) begin
+	end else if(next_mode == DOUT) begin
 		fx2_sloe_n <= 1'b0;
-	end else if(dout_mode != DOUT_INIT) begin
+	end else begin
 		fx2_sloe_n <= 1'b1;
 	end
 end
 
-reg [1:0] cs_delay;
+reg [ 1:0 ] delay_counte;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		cs_delay <= 'b0;
-	end else if(fx2_slcs_n && cs_delay != 2'd2) begin
-		cs_delay <= cs_delay + 1'b1;
-	end else if(!fx2_slcs_n) begin
-		cs_delay <= 'b0;
+		delay_counte <= 'b0
+	end else if(mode == DOUT || mode == DIND) begin
+		if(delay_counte != 2'd3) begin
+			delay_counte <= delay_counte + 1'd1;
+		end
+	end else begin
+		delay_counte <= 'b0;
 	end
 end
 
@@ -215,56 +173,28 @@ always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		fx2_slrd_n <= 1'b1;
 		fx2_slwr_n <= 1'b1;
-	end else if(din_mode != INIT && cs_delay == 2'd2) begin
+		fx2_a <= 'b0
+	end else if(mode == DIND && delay_counte == 2'd3) begin
 		fx2_slrd_n <= 1'b0;
 		fx2_slwr_n <= 1'b1;
-	end else if(dout_mode != DOUT_INIT && cs_delay == 2'd2) begin
+		fx2_a <= 2'b0;
+	end else if(mode == DOUT && delay_counte == 2'd3) begin
 		fx2_slrd_n <= 1'b1;
 		fx2_slwr_n <= 1'b0;
+		fx2_a <= 2'b10;
+	end
+end
+
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fx2_pktend_n <= 1'b1;
+	end else if(din_counte == TRAN_NUM) begin
+		fx2_pktend_n <= 1'b0;
+	end else if(dout_counte == TRAN_NUM) begin
+		fx2_pktend_n <= 1'b0;
 	end else begin
-		fx2_slrd_n <= 1'b1;
-		fx2_slwr_n <= 1'b1;
+		fx2_pktend_n <= 1'b1;
 	end
 end
-
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fx2_pktend <= 'b0;
-	end
-end
-
-integer i;
-reg [15:0] fx2_dout_real [2 ** NPOINT - 1:0];
-reg [15:0] fx2_dout_imag [2 ** NPOINT - 1:0];
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		for (i = 0; i < 2 ** NPOINT; i = i + 1) begin
-			fx2_dout_real[i] <= 'b0;
-			fx2_dout_imag[i] <= 'b0;
-		end
-	end else if(fft_dout_valid && !fft_dout_busy) begin
-		for (i = 0; i < 2 ** NPOINT; i = i + 1) begin
-			fx2_dout_real[i] <= fft_dout_real[i*16 +: 16];
-			fx2_dout_imag[i] <= fft_dout_imag[i*16 +: 16];
-		end
-	end
-end
-
-reg [15:0] fx2_dout;
-always @ (posedge clk or negedge rst_n) begin
-	if(~rst_n) begin
-		fx2_dout <= 'b0;
-	end else if(dout_mode == DOUT_WORK && fx2_sloe_n == 1'b1) begin
-		if(is_dout && result_count[0] == 1'b0) begin
-			fx2_dout <= fx2_dout_imag[result_count[NPOINT:1] + 1'b1];
-		end else if(is_dout && result_count[0] == 1'b1) begin
-			fx2_dout <= fx2_dout_real[result_count[NPOINT:1] + 1'b1];
-		end
-	end else begin
-		fx2_dout <= fx2_dout_real[0];
-	end
-end
-
-assign fx2_db = (fx2_sloe_n)?fx2_dout:'bz;
 
 endmodule
