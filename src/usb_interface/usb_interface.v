@@ -39,7 +39,9 @@ wire is_fx2_dout;
 wire is_fx2_din_noempty;
 
 // fft
+wire is_fft_din = fft_din_valid && !fft_din_busy;
 wire is_fft_dout = fft_dout_valid && !fft_dout_busy;
+
 
 // fsm
 reg [ 2:0 ] mode,next_mode;
@@ -196,5 +198,69 @@ always @ (posedge clk or negedge rst_n) begin
 		fx2_pktend_n <= 1'b1;
 	end
 end
+
+always @ (posedge clk or negedge rst_n) begin 
+	if(~rst_n) begin
+		fft_weight_real	 <= 'b0;
+		fft_weight_imag	 <= 'b0;
+		fft_weight_valid <= 'b0;
+	end else if(mode == WEIG && is_fx2_din) begin
+		if(weight_counte[0] == 1'b0) begin
+			fft_weight_real <= fx2_db;
+		end else begin
+			fft_weight_imag <= fx2_db;
+		end
+		fft_weight_valid <= 1'b1;
+	end else begin
+		fft_weight_valid <= 1'b0;
+	end
+end
+
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fft_din_real <= 'b0;
+		fft_din_imag <= 'b0;
+	end else if(mode == DIND && is_fx2_din) begin
+		if(din_counte[0]) begin
+			fft_din_imag[din_counte[NPOINT - 1:1] * 16 +: 16] <= fx2_db;
+		end else begin
+			fft_din_real[din_counte[NPOINT-1:1] * 16 +: 16] <= fx2_db;
+		end
+	end
+end
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		fft_din_valid <= 'b0;
+	end else if(mode == DIND && next_mode == INIT) begin
+		fft_din_valid <= 1'b1;
+	end else if(is_fft_din)begin
+		fft_din_valid <= 1'b0;
+	end
+end
+
+reg [ NPOINT * 16 - 1:0 ] tmp_dout_real;
+reg [ NPOINT * 16 - 1:0 ] tmp_dout_imag;
+always @ (posedge clk or negedge rst_n) begin 
+	if(~rst_n) begin
+		fft_dout_busy <= 'b0;
+	end else if(is_fft_dout) begin
+		fft_dout_busy <= 1'b1; 
+	end else if(mode == DOUT && next_mode == INIT) begin
+		fft_dout_busy <= 'b0;
+	end
+end
+always @ (posedge clk or negedge rst_n) begin
+	if(~rst_n) begin
+		tmp_dout_real <= 'b0;
+		tmp_dout_imag <= 'b0;
+	end else if(is_fft_dout) begin
+		tmp_dout_real <= fft_dout_real;
+		tmp_dout_imag <= fft_dout_imag;
+	end else if(mode == DOUT && is_fft_dout && dout_counte[0]) begin
+		tmp_dout_real <= {16'd0,tmp_dout_real[NPOINT * 16 - 1:16]};
+		tmp_dout_imag <= {16'd0,tmp_dout_imag[NPOINT * 16 - 1:16]};
+	end
+end
+assign fx2_db = (mode == DOUT)? (dout_counte[0])?tmp_dout_imag[15:0]:tmp_dout_real[15:0] :'bz;
 
 endmodule
