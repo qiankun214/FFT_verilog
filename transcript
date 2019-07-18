@@ -12,399 +12,232 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# OpenFile C:/Users/qiank/Desktop/FFT/FFT_verilog/fft.mpf
+# OpenFile D:/NNBase_myself/DSP/FFT/fft.mpf
 # Loading project fft
-# Compile of butterfly.v was successful.
-# Compile of full_parallel_fft.v was successful.
-# Compile of weight_buffer.v was successful.
-# Compile of fpf_top.sv was successful.
-# 4 compiles, 0 failed with no errors.
-# Compile of butterfly.v was successful.
-# Compile of full_parallel_fft.v was successful.
-# Compile of weight_buffer.v was successful.
-# Compile of fpf_top.sv was successful.
-# 4 compiles, 0 failed with no errors.
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 15:41:38 on Jul 12,2019
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv failed with 1 errors.
+# 2 compiles, 1 failed with 1 error.
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.tb_usb_interface
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:15:17 on Jul 18,2019
 # ** Note: (vsim-3812) Design is being optimized...
+# ** Error (suppressible): (vopt-8885) D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv(37): Illegal inout port connection for 'fx2_db' (13th connection) to reg type. 
+# Optimization failed
+# Error loading design
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv failed with 1 errors.
+# 2 compiles, 1 failed with 1 error.
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.tb_usb_interface
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:17:48 on Jul 18,2019
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
 # Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_op1_real
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_op1_imag
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_op2_real
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_op2_imag
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_r1_real
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_r1_imag
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_r2_real
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_r2_imag
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 15:43:41 on Jul 12,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# ** Error: invalid command name "0"
-# Error in macro ./script/fpf_test.do line 20
-# invalid command name "0"
-#     while executing
-# "0"
-#     invoked from within
-# "add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/butterfly_op1_real"
-# Compile of butterfly.v was successful.
-# Compile of full_parallel_fft.v was successful.
-# Compile of weight_buffer.v was successful.
-# Compile of fpf_top.sv was successful.
-# 4 compiles, 0 failed with no errors.
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 15:44:17 on Jul 12,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON:get one req finish
-# '{0, 0.199219, 0, 0.199219, 0, 0.199219, 0, 0.199219}
-# '{0, 0, 0, 0, 0, 0, 0, 0}
-# ** Note: $stop    : C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(123)
-#    Time: 405 ns  Iteration: 1  Instance: /fpf_top
-# Break in Task case1 at C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv line 123
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/weight_real
-add wave -position end  sim:/fpf_top/dut/butterfly_unit[0]/u_pe/weight_imag
-run -all
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 15:47:52 on Jul 12,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON:get one req finish
-# '{0, 0.199219, 0, 0.199219, 0, 0.199219, 0, 0.199219}
-# '{0, 0, 0, 0, 0, 0, 0, 0}
-# ** Note: $stop    : C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(123)
-#    Time: 405 ns  Iteration: 1  Instance: /fpf_top
-# Break in Task case1 at C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv line 123
-add wave -position end  sim:/fpf_top/dut/din_weight_valid
-add wave -position end  sim:/fpf_top/dut/din_weight_real
-add wave -position end  sim:/fpf_top/dut/din_weight_imag
-# Compile of butterfly.v was successful.
-# Compile of full_parallel_fft.v was successful.
-# Compile of weight_buffer.v was successful.
-# Compile of fpf_top.sv was successful.
-# 4 compiles, 0 failed with no errors.
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 15:50:43 on Jul 12,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON:get one req finish
-# '{0, 0.199219, 0, 0.199219, 0, 0.199219, 0, 0.199219}
-# '{0, 0, 0, 0, 0, 0, 0, 0}
-# ** Note: $stop    : C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(123)
-#    Time: 405 ns  Iteration: 1  Instance: /fpf_top
-# Break in Task case1 at C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv line 123
-# Causality operation skipped due to absence of debug database file
-add wave -position end  sim:/fpf_top/dut/weight_real
-add wave -position end  sim:/fpf_top/dut/weight_imag
-run -all
-# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 16:00:56 on Jul 12,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON:get one req finish
-# '{0, 0.199219, 0, 0.199219, 0, 0.199219, 0, 0.199219}
-# '{0, 0, 0, 0, 0, 0, 0, 0}
-# ** Note: $stop    : C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(123)
-#    Time: 405 ns  Iteration: 1  Instance: /fpf_top
-# Break in Task case1 at C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv line 123
-# Compile of butterfly.v was successful.
-# Compile of full_parallel_fft.v was successful.
-# Compile of weight_buffer.v was successful.
-# Compile of fpf_top.sv was successful.
-# 4 compiles, 0 failed with no errors.
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 16:02:37 on Jul 12,2019
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-3839) D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv(78): Variable '/tb_usb_interface/fft_din_valid', driven via a port connection, is multiply driven. See D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv(37).
+#    Time: 0 ns  Iteration: 0  Instance: /tb_usb_interface File: D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.tb_usb_interface
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:18:55 on Jul 18,2019
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-run -all
-# DRV:build finish
-# MON:build finish
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON:get one req finish
-# '{0, 0, 0, 0, 0, 0, 0, 0.796875}
-# '{0, 0, 0, 0, 0, 0, 0, 0}
-# ** Note: $stop    : C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(123)
-#    Time: 405 ns  Iteration: 1  Instance: /fpf_top
-# Break in Task case1 at C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv line 123
-# Compile of butterfly.v was successful.
-# Compile of full_parallel_fft.v was successful.
-# Compile of weight_buffer.v was successful.
-# Compile of fpf_top.sv was successful with warnings.
-# 4 compiles, 0 failed with no errors.
-do script/fpf_test.do
-# vsim -voptargs=""+acc"" work.fpf_top 
-# Start time: 16:07:27 on Jul 12,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(67): (vopt-2244) Variable 'a' is implicitly static. You must either explicitly declare it as static or automatic
-# or remove the initialization in the declaration of variable.
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+vsim -voptargs=+acc work.tb_usb_interface
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:19:33 on Jul 18,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
 # Loading sv_std.std
-# Loading work.fpf_top_sv_unit(fast)
-# Loading work.fpf_top(fast)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
-# Loading work.full_parallel_fft(fast)
-# Loading work.weight_buffer(fast)
-# Loading work.butterfly(fast)
-# Loading work.butterfly(fast__1)
-# Loading work.butterfly(fast__2)
-# Loading work.bu_port(fast)
-# Loading work.weight_if(fast)
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+add wave -position end  sim:/tb_usb_interface/dut/clk
+add wave -position end  sim:/tb_usb_interface/dut/rst_n
+add wave -position end  sim:/tb_usb_interface/dut/fx2_flaga
+add wave -position end  sim:/tb_usb_interface/dut/fx2_flagb
+add wave -position end  sim:/tb_usb_interface/dut/fx2_flagc
+add wave -position end  sim:/tb_usb_interface/dut/fx2_flagd
+add wave -position end  sim:/tb_usb_interface/dut/fx2_slcs_n
+add wave -position end  sim:/tb_usb_interface/dut/fx2_slwr_n
+add wave -position end  sim:/tb_usb_interface/dut/fx2_slrd_n
+add wave -position end  sim:/tb_usb_interface/dut/fx2_sloe_n
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlftdnygkc".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftdnygkc
+add wave -position end  sim:/tb_usb_interface/dut/fx2_pktend_n
+add wave -position end  sim:/tb_usb_interface/dut/fx2_a
+add wave -position end  sim:/tb_usb_interface/dut/fx2_db
+add wave -position end  sim:/tb_usb_interface/dut/fft_weight_valid
+add wave -position end  sim:/tb_usb_interface/dut/fft_weight_real
+add wave -position end  sim:/tb_usb_interface/dut/fft_weight_imag
+add wave -position end  sim:/tb_usb_interface/dut/fft_din_valid
+add wave -position end  sim:/tb_usb_interface/dut/fft_din_busy
+add wave -position end  sim:/tb_usb_interface/dut/fft_din_real
+add wave -position end  sim:/tb_usb_interface/dut/fft_din_imag
+add wave -position end  sim:/tb_usb_interface/dut/fft_dout_valid
+add wave -position end  sim:/tb_usb_interface/dut/fft_dout_busy
+add wave -position end  sim:/tb_usb_interface/dut/fft_dout_real
+add wave -position end  sim:/tb_usb_interface/dut/fft_dout_imag
 run -all
-# LAB:a=2
-# DRV:build finish
-# MON:build finish
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# WEGH:once
-# Case1:begin
-# Case1:data generate finish
-# DRV:get one req
-# DRV:start one req
-# DRV:finish one req
-# MON:get one req start
-# MON:get one req finish
-# '{0, 0, 0, 0, 0, 0, 0, 0.796875}
-# '{0, 0, 0, 0, 0, 0, 0, 0}
-# ** Note: $stop    : C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv(123)
-#    Time: 405 ns  Iteration: 1  Instance: /fpf_top
-# Break in Task case1 at C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/full_parallel_fft/fpf_top.sv line 123
-#  Trace back: Too many nested dialog boxes
+add wave -position end  sim:/tb_usb_interface/dut/mode
+add wave -position end  sim:/tb_usb_interface/dut/next_mode
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:23:56 on Jul 18,2019
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlftdkbgzr".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftdkbgzr
+run -all
+add wave -position end  sim:/tb_usb_interface/clk
+add wave -position end  sim:/tb_usb_interface/rst_n
+add wave -position end  sim:/tb_usb_interface/fx2_flaga
+add wave -position end  sim:/tb_usb_interface/fx2_flagb
+add wave -position end  sim:/tb_usb_interface/fx2_flagc
+add wave -position end  sim:/tb_usb_interface/fx2_flagd
+add wave -position end  sim:/tb_usb_interface/fx2_slcs_n
+add wave -position end  sim:/tb_usb_interface/fx2_slwr_n
+add wave -position end  sim:/tb_usb_interface/fx2_slrd_n
+add wave -position end  sim:/tb_usb_interface/fx2_sloe_n
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:25:14 on Jul 18,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Error: invalid command name "dd"
+# Error in macro ./script/usb_test.do line 3
+# invalid command name "dd"
 #     while executing
-# "error "Too many nested dialog boxes""
-#     (procedure "tk_dialog" line 32)
-#     invoked from within
-# "tk_dialog .srcobjdlg "Warning!" "$msg" "" 1 Overwrite Reload Ignore"
-#     (object "::.main_pane.source.interior.cs.body.srcobj" method "::vsimwidgets::Srcobj::CheckModification" body line 18)
-#     invoked from within
-# "::.main_pane.source.interior.cs.body.srcobj CheckModification"
-#     (in namespace inscope "::vsimwidgets::Srcobj" script line 1)
-#     invoked from within
-# "namespace inscope ::vsimwidgets::Srcobj {::.main_pane.source.interior.cs.body.srcobj CheckModification}"
-#     (command bound to event)
-#    <2:C:/modeltech64_10.5/win64/tk8.5/bgerror.tcl:92: ::tkerror {Too many nested dialog boxes}
-#    <1:eval:1: ::tk::dialog::error::bgerror {Too many nested dialog boxes}
-#  Trace back: Too many nested dialog boxes
-#     while executing
-# "error "Too many nested dialog boxes""
-#     (procedure "tk_dialog" line 32)
-#     invoked from within
-# "tk_dialog .srcobjdlg "Warning!" "$msg" "" 1 Overwrite Reload Ignore"
-#     (object "::.main_pane.source.interior.cs.body.srcobj" method "::vsimwidgets::Srcobj::CheckModification" body line 18)
-#     invoked from within
-# "::.main_pane.source.interior.cs.body.srcobj CheckModification"
-#     (in namespace inscope "::vsimwidgets::Srcobj" script line 1)
-#     invoked from within
-# "namespace inscope ::vsimwidgets::Srcobj {::.main_pane.source.interior.cs.body.srcobj CheckModification}"
-#     (command bound to event)
-#    <2:C:/modeltech64_10.5/win64/tk8.5/bgerror.tcl:92: ::tkerror {Too many nested dialog boxes}
-#    <1:C:/modeltech64_10.5/win64/tk8.5/dialog.tcl:178: ::tk::dialog::error::bgerror {Too many nested dialog boxes}
-#  Trace back: Too many nested dialog boxes
-#     while executing
-# "error "Too many nested dialog boxes""
-#     (procedure "tk_dialog" line 32)
-#     invoked from within
-# "tk_dialog .srcobjdlg "Warning!" "$msg" "" 1 Overwrite Reload Ignore"
-#     (object "::.main_pane.source.interior.cs.body.srcobj" method "::vsimwidgets::Srcobj::CheckModification" body line 18)
-#     invoked from within
-# "::.main_pane.source.interior.cs.body.srcobj CheckModification"
-#     (in namespace inscope "::vsimwidgets::Srcobj" script line 1)
-#     invoked from within
-# "namespace inscope ::vsimwidgets::Srcobj {::.main_pane.source.interior.cs.body.srcobj CheckModification}"
-#     (command bound to event)
-#    <2:C:/modeltech64_10.5/win64/tk8.5/bgerror.tcl:92: ::tkerror {Too many nested dialog boxes}
-#    <1:C:/modeltech64_10.5/win64/tk8.5/dialog.tcl:178: ::tk::dialog::error::bgerror {Too many nested dialog boxes}
+# "dd wave -position end  sim:/tb_usb_interface/clk"
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:25:33 on Jul 18,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlft76q0hh".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft76q0hh
+run -all
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:28:38 on Jul 18,2019
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlft8knmqr".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlft8knmqr
+run -all
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:33:23 on Jul 18,2019
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlftevakm5".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftevakm5
+run -all
+add wave -position 0  sim:/tb_usb_interface/dut/WEIGHT_NUM
+run -all
+add wave -position 1  sim:/tb_usb_interface/dut/weight_counte
+run -all
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+add wave -position 1  sim:/tb_usb_interface/dut/weight_counte
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:36:18 on Jul 18,2019
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlftd0f505".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftd0f505
+run -all
+add wave -position 0  sim:/tb_usb_interface/dut/TRAN_NUM
+run -all
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:40:51 on Jul 18,2019
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlftwmq7cd".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftwmq7cd
+run -all
+# Compile of usb_interface.v was successful.
+# Compile of tb_usb_interface.sv was successful.
+# 2 compiles, 0 failed with no errors.
+do script/usb_test.do
+# vsim -voptargs="+acc" work.tb_usb_interface 
+# Start time: 23:42:26 on Jul 18,2019
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
+# Loading sv_std.std
+# Loading work.tb_usb_interface(fast)
+# Loading work.usb_interface(fast)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
+#           Attempting to use alternate WLF file "./wlftszi2yj".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftszi2yj
+run -all
+# End time: 23:42:40 on Jul 18,2019, Elapsed time: 0:00:14
+# Errors: 0, Warnings: 2

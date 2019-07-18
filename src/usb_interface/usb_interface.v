@@ -28,28 +28,28 @@ module usb_interface #(parameter NPOINT = 3)(
 	output reg [16 * (2 ** NPOINT) - 1:0] fft_din_imag,
 
 	input fft_dout_valid,
-	output fft_dout_busy,
+	output reg fft_dout_busy,
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_real,
 	input [16 * (2 ** NPOINT) - 1:0] fft_dout_imag
 );
 // fx2 data
-wire is_fx2_din;
-wire is_fx2_dout;
+wire is_fx2_din_noempty = fx2_flaga;
+wire is_fx2_dout_nofull = fx2_flagb;
 
-wire is_fx2_din_noempty;
+wire is_fx2_din = !fx2_slcs_n && !fx2_slrd_n && is_fx2_din_noempty;
+wire is_fx2_dout = !fx2_slcs_n && !fx2_slrd_n && is_fx2_dout_nofull;
 
 // fft
 wire is_fft_din = fft_din_valid && !fft_din_busy;
 wire is_fft_dout = fft_dout_valid && !fft_dout_busy;
 
-
 // fsm
 reg [ 2:0 ] mode,next_mode;
-localparam REST = 3'd000;
-localparam WEIG = 3'd001;
-localparam INIT = 3'd011;
-localparam DIND = 3'd010;
-localparam DOUT = 3'd111;
+localparam REST = 3'b000;
+localparam WEIG = 3'b001;
+localparam INIT = 3'b011;
+localparam DIND = 3'b010;
+localparam DOUT = 3'b111;
 
 reg [ NPOINT + NPOINT - 1:0 ] weight_counte;
 always @ (posedge clk or negedge rst_n) begin
@@ -60,7 +60,7 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-reg [ NPOINT - 1:0 ] din_counte;
+reg [ NPOINT:0 ] din_counte;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		din_counte <= 'b0;
@@ -71,7 +71,7 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-reg [ NPOINT - 1:0 ] dout_counte;
+reg [ NPOINT:0 ] dout_counte;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		dout_counte <= 'b0;
@@ -90,8 +90,8 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-localparam WEIGHT_NUM = NPOINT * (2 ** (NPOINT - 1)) - 1;
-localparam TRAN_NUM = 2 ** NPOINT - 1;
+localparam WEIGHT_NUM = 2 * NPOINT * (2 ** (NPOINT - 1)) - 1;
+localparam TRAN_NUM = 2 ** (NPOINT + 1) - 1;
 always @ (*) begin
 	case (mode)
 		REST:next_mode = WEIG;
@@ -161,8 +161,8 @@ end
 reg [ 1:0 ] delay_counte;
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		delay_counte <= 'b0
-	end else if(mode == DOUT || mode == DIND) begin
+		delay_counte <= 'b0;
+	end else if(mode == DOUT || mode == DIND || mode == WEIG) begin
 		if(delay_counte != 2'd3) begin
 			delay_counte <= delay_counte + 1'd1;
 		end
@@ -175,8 +175,12 @@ always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
 		fx2_slrd_n <= 1'b1;
 		fx2_slwr_n <= 1'b1;
-		fx2_a <= 'b0
-	end else if(mode == DIND && delay_counte == 2'd3) begin
+		fx2_a <= 'b0;
+	end else if(next_mode == INIT) begin
+		fx2_slrd_n <= 1'b1;
+		fx2_slwr_n <= 1'b1;
+		fx2_a <= 'b0;
+	end else if((mode == DIND || mode == WEIG) && delay_counte == 2'd3) begin
 		fx2_slrd_n <= 1'b0;
 		fx2_slwr_n <= 1'b1;
 		fx2_a <= 2'b0;
@@ -207,10 +211,11 @@ always @ (posedge clk or negedge rst_n) begin
 	end else if(mode == WEIG && is_fx2_din) begin
 		if(weight_counte[0] == 1'b0) begin
 			fft_weight_real <= fx2_db;
+			fft_weight_valid <= 1'b0;
 		end else begin
 			fft_weight_imag <= fx2_db;
+			fft_weight_valid <= 1'b1;
 		end
-		fft_weight_valid <= 1'b1;
 	end else begin
 		fft_weight_valid <= 1'b0;
 	end
@@ -222,9 +227,9 @@ always @ (posedge clk or negedge rst_n) begin
 		fft_din_imag <= 'b0;
 	end else if(mode == DIND && is_fx2_din) begin
 		if(din_counte[0]) begin
-			fft_din_imag[din_counte[NPOINT - 1:1] * 16 +: 16] <= fx2_db;
+			fft_din_imag[din_counte[NPOINT:1] * 16 +: 16] <= fx2_db;
 		end else begin
-			fft_din_real[din_counte[NPOINT-1:1] * 16 +: 16] <= fx2_db;
+			fft_din_real[din_counte[NPOINT:1] * 16 +: 16] <= fx2_db;
 		end
 	end
 end
