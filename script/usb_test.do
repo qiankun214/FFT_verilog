@@ -27,3 +27,5 @@ add wave -position end  sim:/tb_usb_interface/dut/fft_dout_imag
 
 add wave -position end  sim:/tb_usb_interface/dut/mode
 add wave -position end  sim:/tb_usb_interface/dut/next_mode
+add wave -position end  sim:/tb_usb_interface/dut/is_fx2_dout
+add wave -position end  sim:/tb_usb_interface/dut/dout_counte

@@ -70,9 +70,10 @@ usb_interface #(
 	.fft_dout_imag(fft_dout_imag)
 );
 
+logic is_out;
 initial begin
 	fx2_flaga = 'b0;
-	fx2_flagb = 'b0;
+	fx2_flagb = 1'b1;
 	fx2_flagc = 'b0;
 	fx2_flagd = 'b0;
 	fft_din_busy = 'b0;
@@ -80,9 +81,10 @@ initial begin
 	fft_dout_real = 'b0;
 	fft_dout_imag = 'b0;
 	#1000 fx2_flaga = 1'b1;
+	is_out = 1'b0;
 end
 
-assign fx2_db = 16'h0123;
+assign fx2_db = (is_out)?16'hz:16'h1234;
 
 initial begin
 	clk = 'b0;
@@ -95,6 +97,16 @@ initial begin
 	rst_n = 1'b1;
 	#1 rst_n = 1'b0;
 	#1 rst_n = 1'b1;
+end
+
+initial begin
+	#10000;
+	fft_dout_real = 128'h0123456789abcdef0123456789abcdef;
+	fft_dout_imag = 128'hfedcba9876543210fedcba9876543210;
+	fft_dout_valid = 1'b1;
+	is_out = 1'b1;
+	@(posedge clk);
+	fft_dout_valid = 1'b0;
 end
 
 endmodule

@@ -12,232 +12,138 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# OpenFile D:/NNBase_myself/DSP/FFT/fft.mpf
+# OpenFile C:/Users/qiank/Desktop/FFT/FFT_verilog/fft.mpf
 # Loading project fft
 # Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv failed with 1 errors.
-# 2 compiles, 1 failed with 1 error.
+# Compile of tb_usb_interface.sv was successful.
+# Compile of fpga_fft_acc.v was successful.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# 6 compiles, 0 failed with no errors.
 # Compile of usb_interface.v was successful.
 # Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-vsim -voptargs=+acc work.tb_usb_interface
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:15:17 on Jul 18,2019
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Error (suppressible): (vopt-8885) D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv(37): Illegal inout port connection for 'fx2_db' (13th connection) to reg type. 
-# Optimization failed
-# Error loading design
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv failed with 1 errors.
-# 2 compiles, 1 failed with 1 error.
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-vsim -voptargs=+acc work.tb_usb_interface
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:17:48 on Jul 18,2019
+# Compile of fpga_fft_acc.v was successful.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of tb_fpga_fft_acc.sv was successful.
+# 7 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.tb_fpga_fft_acc
+# vsim -voptargs="+acc" work.tb_fpga_fft_acc 
+# Start time: 17:24:16 on Jul 19,2019
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
 # Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
+# Loading work.tb_fpga_fft_acc(fast)
+# Loading work.fpga_fft_acc(fast)
 # Loading work.usb_interface(fast)
-# ** Warning: (vsim-3839) D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv(78): Variable '/tb_usb_interface/fft_din_valid', driven via a port connection, is multiply driven. See D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv(37).
-#    Time: 0 ns  Iteration: 0  Instance: /tb_usb_interface File: D:/NNBase_myself/DSP/FFT/tb/usb_interface/tb_usb_interface.sv
+# Loading work.full_parallel_fft(fast)
+# Loading work.weight_buffer(fast)
+# Loading work.butterfly(fast)
+# Loading work.butterfly(fast__1)
+# Loading work.butterfly(fast__2)
+# ** Warning: (vsim-3015) C:/Users/qiank/Desktop/FFT/FFT_verilog/tb/fpga_fft_acc/tb_fpga_fft_acc.sv(22): [PCDPC] - Port size (16) does not match connection size (1) for port 'fx2_db'. The port definition is at: C:/Users/qiank/Desktop/FFT/FFT_verilog/src/fpga_fft_acc/fpga_fft_acc.v(19).
+#    Time: 0 ns  Iteration: 0  Instance: /tb_fpga_fft_acc/dut File: C:/Users/qiank/Desktop/FFT/FFT_verilog/src/fpga_fft_acc/fpga_fft_acc.v
 # Compile of usb_interface.v was successful.
 # Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-vsim -voptargs=+acc work.tb_usb_interface
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:18:55 on Jul 18,2019
+# Compile of fpga_fft_acc.v was successful.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of tb_fpga_fft_acc.sv was successful.
+# 7 compiles, 0 failed with no errors.
+vsim -voptargs=+acc work.tb_fpga_fft_acc
+# vsim -voptargs="+acc" work.tb_fpga_fft_acc 
+# Start time: 17:26:12 on Jul 19,2019
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
+# Loading work.tb_fpga_fft_acc(fast)
+# Loading work.fpga_fft_acc(fast)
 # Loading work.usb_interface(fast)
-vsim -voptargs=+acc work.tb_usb_interface
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:19:33 on Jul 18,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-add wave -position end  sim:/tb_usb_interface/dut/clk
-add wave -position end  sim:/tb_usb_interface/dut/rst_n
-add wave -position end  sim:/tb_usb_interface/dut/fx2_flaga
-add wave -position end  sim:/tb_usb_interface/dut/fx2_flagb
-add wave -position end  sim:/tb_usb_interface/dut/fx2_flagc
-add wave -position end  sim:/tb_usb_interface/dut/fx2_flagd
-add wave -position end  sim:/tb_usb_interface/dut/fx2_slcs_n
-add wave -position end  sim:/tb_usb_interface/dut/fx2_slwr_n
-add wave -position end  sim:/tb_usb_interface/dut/fx2_slrd_n
-add wave -position end  sim:/tb_usb_interface/dut/fx2_sloe_n
+# Loading work.full_parallel_fft(fast)
+# Loading work.weight_buffer(fast)
+# Loading work.butterfly(fast)
+# Loading work.butterfly(fast__1)
+# Loading work.butterfly(fast__2)
+add wave -position end  sim:/tb_fpga_fft_acc/NPOINT
+add wave -position end  sim:/tb_fpga_fft_acc/clk
+add wave -position end  sim:/tb_fpga_fft_acc/rst_n
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_flaga
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_flagb
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_flagc
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_flagd
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_slcs_n
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_slwr_n
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_slrd_n
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_sloe_n
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_pktend_n
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_a
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_db
+add wave -position end  sim:/tb_fpga_fft_acc/fx2_db_din
+add wave -position end  sim:/tb_fpga_fft_acc/din_fifo
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlftdnygkc".
+#           Attempting to use alternate WLF file "./wlftnzqee8".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftdnygkc
-add wave -position end  sim:/tb_usb_interface/dut/fx2_pktend_n
-add wave -position end  sim:/tb_usb_interface/dut/fx2_a
-add wave -position end  sim:/tb_usb_interface/dut/fx2_db
-add wave -position end  sim:/tb_usb_interface/dut/fft_weight_valid
-add wave -position end  sim:/tb_usb_interface/dut/fft_weight_real
-add wave -position end  sim:/tb_usb_interface/dut/fft_weight_imag
-add wave -position end  sim:/tb_usb_interface/dut/fft_din_valid
-add wave -position end  sim:/tb_usb_interface/dut/fft_din_busy
-add wave -position end  sim:/tb_usb_interface/dut/fft_din_real
-add wave -position end  sim:/tb_usb_interface/dut/fft_din_imag
-add wave -position end  sim:/tb_usb_interface/dut/fft_dout_valid
-add wave -position end  sim:/tb_usb_interface/dut/fft_dout_busy
-add wave -position end  sim:/tb_usb_interface/dut/fft_dout_real
-add wave -position end  sim:/tb_usb_interface/dut/fft_dout_imag
+#           Using alternate file: ./wlftnzqee8
+# Drop insertion failed: sim:/tb_fpga_fft_acc/din_fifo
+# (vsim-4027) Logging is not supported for Queue item: /tb_fpga_fft_acc/din_fifo 
+add wave -position end  sim:/tb_fpga_fft_acc/dut/u_fft/u_weight_buffer/weight_real
+add wave -position end  sim:/tb_fpga_fft_acc/dut/u_fft/u_weight_buffer/weight_imag
 run -all
-add wave -position end  sim:/tb_usb_interface/dut/mode
-add wave -position end  sim:/tb_usb_interface/dut/next_mode
 # Compile of usb_interface.v was successful.
 # Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:23:56 on Jul 18,2019
+# Compile of fpga_fft_acc.v was successful.
+# Compile of butterfly.v was successful.
+# Compile of full_parallel_fft.v was successful.
+# Compile of weight_buffer.v was successful.
+# Compile of tb_fpga_fft_acc.sv was successful.
+# 7 compiles, 0 failed with no errors.
+do script/fpga_test.do
+# vsim -voptargs="+acc" work.tb_fpga_fft_acc 
+# Start time: 17:33:11 on Jul 19,2019
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
 # Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
+# Loading work.tb_fpga_fft_acc(fast)
+# Loading work.fpga_fft_acc(fast)
 # Loading work.usb_interface(fast)
+# Loading work.full_parallel_fft(fast)
+# Loading work.weight_buffer(fast)
+# Loading work.butterfly(fast)
+# Loading work.butterfly(fast__1)
+# Loading work.butterfly(fast__2)
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlftdkbgzr".
+#           Attempting to use alternate WLF file "./wlftwqgxet".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftdkbgzr
-run -all
-add wave -position end  sim:/tb_usb_interface/clk
-add wave -position end  sim:/tb_usb_interface/rst_n
-add wave -position end  sim:/tb_usb_interface/fx2_flaga
-add wave -position end  sim:/tb_usb_interface/fx2_flagb
-add wave -position end  sim:/tb_usb_interface/fx2_flagc
-add wave -position end  sim:/tb_usb_interface/fx2_flagd
-add wave -position end  sim:/tb_usb_interface/fx2_slcs_n
-add wave -position end  sim:/tb_usb_interface/fx2_slwr_n
-add wave -position end  sim:/tb_usb_interface/fx2_slrd_n
-add wave -position end  sim:/tb_usb_interface/fx2_sloe_n
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:25:14 on Jul 18,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-# ** Error: invalid command name "dd"
-# Error in macro ./script/usb_test.do line 3
-# invalid command name "dd"
+#           Using alternate file: ./wlftwqgxet
+# ** Error: (vsim-4027) Logging is not supported for Queue item: /tb_fpga_fft_acc/din_fifo 
+# Error in macro ./script/fpga_test.do line 18
+# (vsim-4027) Logging is not supported for Queue item: /tb_fpga_fft_acc/din_fifo 
 #     while executing
-# "dd wave -position end  sim:/tb_usb_interface/clk"
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:25:33 on Jul 18,2019
-# ** Note: (vsim-8009) Loading existing optimized design _opt1
+# "add wave -position end  sim:/tb_fpga_fft_acc/NPOINT"
+run -all
+add wave -position end  sim:/tb_fpga_fft_acc/dut/u_usb_if/mode
+do script/fpga_test.do
+# vsim -voptargs="+acc" work.tb_fpga_fft_acc 
+# Start time: 17:34:30 on Jul 19,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt2
 # Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
+# Loading work.tb_fpga_fft_acc(fast)
+# Loading work.fpga_fft_acc(fast)
 # Loading work.usb_interface(fast)
+# Loading work.full_parallel_fft(fast)
+# Loading work.weight_buffer(fast)
+# Loading work.butterfly(fast)
+# Loading work.butterfly(fast__1)
+# Loading work.butterfly(fast__2)
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlft76q0hh".
+#           Attempting to use alternate WLF file "./wlfthen90m".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft76q0hh
+#           Using alternate file: ./wlfthen90m
 run -all
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:28:38 on Jul 18,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlft8knmqr".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft8knmqr
-run -all
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:33:23 on Jul 18,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlftevakm5".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftevakm5
-run -all
-add wave -position 0  sim:/tb_usb_interface/dut/WEIGHT_NUM
-run -all
-add wave -position 1  sim:/tb_usb_interface/dut/weight_counte
-run -all
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-add wave -position 1  sim:/tb_usb_interface/dut/weight_counte
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:36:18 on Jul 18,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlftd0f505".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftd0f505
-run -all
-add wave -position 0  sim:/tb_usb_interface/dut/TRAN_NUM
-run -all
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:40:51 on Jul 18,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlftwmq7cd".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftwmq7cd
-run -all
-# Compile of usb_interface.v was successful.
-# Compile of tb_usb_interface.sv was successful.
-# 2 compiles, 0 failed with no errors.
-do script/usb_test.do
-# vsim -voptargs="+acc" work.tb_usb_interface 
-# Start time: 23:42:26 on Jul 18,2019
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vopt-143) Recognized 1 FSM in module "usb_interface(fast)".
-# Loading sv_std.std
-# Loading work.tb_usb_interface(fast)
-# Loading work.usb_interface(fast)
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: qiank  Hostname: DESKTOP-9R5737C  ProcessID: 600
-#           Attempting to use alternate WLF file "./wlftszi2yj".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftszi2yj
-run -all
-# End time: 23:42:40 on Jul 18,2019, Elapsed time: 0:00:14
+# End time: 17:56:28 on Jul 19,2019, Elapsed time: 0:21:58
 # Errors: 0, Warnings: 2

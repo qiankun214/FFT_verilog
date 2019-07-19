@@ -37,7 +37,7 @@ wire is_fx2_din_noempty = fx2_flaga;
 wire is_fx2_dout_nofull = fx2_flagb;
 
 wire is_fx2_din = !fx2_slcs_n && !fx2_slrd_n && is_fx2_din_noempty;
-wire is_fx2_dout = !fx2_slcs_n && !fx2_slrd_n && is_fx2_dout_nofull;
+wire is_fx2_dout = !fx2_slcs_n && !fx2_slwr_n && is_fx2_dout_nofull;
 
 // fft
 wire is_fft_din = fft_din_valid && !fft_din_busy;
@@ -103,7 +103,7 @@ always @ (*) begin
 			end
 		end
 		INIT:begin
-			if(is_fft_dout) begin
+			if(fft_dout_busy) begin
 				next_mode = DOUT;
 			end else if(is_fx2_din_noempty) begin
 				next_mode = DIND;
@@ -150,11 +150,11 @@ end
 
 always @ (posedge clk or negedge rst_n) begin
 	if(~rst_n) begin
-		fx2_sloe_n <= 1'b1;
-	end else if(next_mode == DOUT) begin
 		fx2_sloe_n <= 1'b0;
-	end else begin
+	end else if(next_mode == DOUT) begin
 		fx2_sloe_n <= 1'b1;
+	end else begin
+		fx2_sloe_n <= 1'b0;
 	end
 end
 
@@ -243,8 +243,8 @@ always @ (posedge clk or negedge rst_n) begin
 	end
 end
 
-reg [ NPOINT * 16 - 1:0 ] tmp_dout_real;
-reg [ NPOINT * 16 - 1:0 ] tmp_dout_imag;
+reg [ (2 ** NPOINT) * 16 - 1:0 ] tmp_dout_real;
+reg [ (2 ** NPOINT) * 16 - 1:0 ] tmp_dout_imag;
 always @ (posedge clk or negedge rst_n) begin 
 	if(~rst_n) begin
 		fft_dout_busy <= 'b0;
@@ -261,9 +261,9 @@ always @ (posedge clk or negedge rst_n) begin
 	end else if(is_fft_dout) begin
 		tmp_dout_real <= fft_dout_real;
 		tmp_dout_imag <= fft_dout_imag;
-	end else if(mode == DOUT && is_fft_dout && dout_counte[0]) begin
-		tmp_dout_real <= {16'd0,tmp_dout_real[NPOINT * 16 - 1:16]};
-		tmp_dout_imag <= {16'd0,tmp_dout_imag[NPOINT * 16 - 1:16]};
+	end else if(mode == DOUT && is_fx2_dout && dout_counte[0]) begin
+		tmp_dout_real <= {16'd0,tmp_dout_real[(2 ** NPOINT) * 16 - 1:16]};
+		tmp_dout_imag <= {16'd0,tmp_dout_imag[(2 ** NPOINT) * 16 - 1:16]};
 	end
 end
 assign fx2_db = (mode == DOUT)? (dout_counte[0])?tmp_dout_imag[15:0]:tmp_dout_real[15:0] :'bz;
